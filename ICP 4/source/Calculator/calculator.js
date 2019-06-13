@@ -141,7 +141,6 @@ angular.module('CalculatorApp', [])
         };
 
         $scope.clearDisplay = function () {
-            // this.displayScreen = "";
             $("#displayScreen").text("0");
         }
     });

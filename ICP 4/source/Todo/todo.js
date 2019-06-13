@@ -21,7 +21,7 @@ angularTodo.controller('angularTodoCtrl', ['$scope', function ($scope) {
         // $(id).append($compile(newDiv)(scope));
         // scope.apply();
 
-        $(id + " .todo-list-item__trash").removeClass("hidden");
+        // $(id + " .todo-list-item__trash").removeClass("hidden");
     };
 
     $scope.deleteItem = function (index) {
