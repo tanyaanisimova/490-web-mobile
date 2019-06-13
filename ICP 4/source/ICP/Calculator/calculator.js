@@ -14,7 +14,13 @@ angular.module('CalculatorApp', [])
                     if (isOperator) {
                         first = parseFloat(inputArray[0]);
                         second = parseFloat(inputArray[1]);
-                        const answer = "" + (first / second);
+                        let answer = "" + (first / second);
+                        if (answer.includes(".")) {
+                            const answerArray = answer.split(".");
+                            if (answerArray[1].length > 5) { // clips decimals to 5 decimal places
+                                answer = answerArray[0] + "." + answerArray[1].substr(0, 5);
+                            }
+                        }
                         if (button !== "=") {
                             display.text(answer + "" + button);
                         } else {
@@ -37,7 +43,13 @@ angular.module('CalculatorApp', [])
                     if (isOperator) {
                         first = parseFloat(inputArray[0]);
                         second = parseFloat(inputArray[1]);
-                        const answer = "" + (first * second);
+                        let answer = "" + (first * second);
+                        if (answer.includes(".")) {
+                            const answerArray = answer.split(".");
+                            if (answerArray[1].length > 5) {
+                                answer = answerArray[0] + "." + answerArray[1].substr(0, 5);
+                            }
+                        }
                         if (button !== "=") {
                             display.text(answer + "" + button);
                         } else {
@@ -61,7 +73,13 @@ angular.module('CalculatorApp', [])
                     if (isOperator) {
                         first = parseFloat(inputArray[0]);
                         second = parseFloat(inputArray[1]);
-                        const answer = "" + (first + second);
+                        let answer = "" + (first + second);
+                        if (answer.includes(".")) {
+                            const answerArray = answer.split(".");
+                            if (answerArray[1].length > 5) {
+                                answer = answerArray[0] + "." + answerArray[1].substr(0, 5);
+                            }
+                        }
                         if (button !== "=") {
                             display.text(answer + "" + button);
                         } else {
@@ -85,7 +103,13 @@ angular.module('CalculatorApp', [])
                     if (isOperator) {
                         first = parseFloat(inputArray[0]);
                         second = parseFloat(inputArray[1]);
-                        const answer = "" + (first - second);
+                        let answer = "" + (first - second);
+                        if (answer.includes(".")) {
+                            const answerArray = answer.split(".");
+                            if (answerArray[1].length > 5) {
+                                answer = answerArray[0] + "." + answerArray[1].substr(0, 5);
+                            }
+                        }
                         if (button !== "=") {
                             display.text(answer + "" + button);
                         } else {
