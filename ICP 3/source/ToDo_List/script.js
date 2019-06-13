@@ -1,24 +1,39 @@
-
-var wishes = [ "learn how to use JQuery", "build a website", "Become a Web Developer" ]
+const wishes = ["Learn how to use JQuery", "Build a website", "Become a Web Developer"];
+let count = 1;
 
 function addToList(item) {
-  const deleteBtn = "'deleteItem('" + item + "')'";
-  $('#items').append("<li id="+item+">" + item + "<span class='label pending'>Pending</span><button onclick=" + deleteBtn +">Delete</button></li>");
+  $('#items').append("<li id="+count+" class='pending'>"+item+"<select id='select"+count+"' onChange='update("+count+")' class='dropdown'><option selected value='1'>Pending</option><option value='2'>Done</option><option value='3'>Delete</option></select></li>");
+  count = count + 1;
 }
 
 function updateTotal() {
-  completed = $('.success').length;
-  pending = $('.pending').length;
+  const completed = $('.completed').length;
+  const pending = $('.pending').length;
 
   if (completed > 0 || pending > 0) {
     $('.total').text(" Pending: " + pending + " Completed: " + completed);
   }
 }
 
-function deleteItem(item) {
-  const name = "#" + item
-  $(name).remove()
-  updateTotal()
+function update(index) {
+  const item = $("#" + index);
+  const action = $("#select" + index).val();
+  if (action == 1) {
+    item.removeClass("completed");
+    if (!item.hasClass("pending")) {
+      item.addClass("pending");
+    }
+
+  } else if (action == 2) {
+    item.removeClass("pending");
+    if (!item.hasClass("completed")) {
+      item.addClass("completed");
+    }
+
+  } else if (action ==3) {
+    item.remove();
+  }
+  updateTotal();
 }
 
 $(document).ready(function(){
@@ -28,29 +43,12 @@ $(document).ready(function(){
   updateTotal();
 
   $(document).on('click','#add-to-list',function(){
-    item = $("#item").val();
+    const item = $("#item").val();
 
     $("#item").val(""); /* clear value */
     $("#item").focus();
 
     addToList(item);
-    updateTotal();
-  });
-
-  $(document).on('click','#hint',function(){
-    item = $("#item").val();
-
-    $("#item").val(""); /* clear value */
-    $("#item").focus();
-
-    addToList(item);
-    updateTotal();
-  });
-
-  $(document).on('click','.pending',function(){
-    $(this).parent().append("<span class='label success'>Done!</span>");
-    $(this).parent().attr("class", 'completed');
-    $(this).remove();
     updateTotal();
   });
 });

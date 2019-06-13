@@ -1,4 +1,4 @@
-  function newGame() {
+function newGame() {
   $.ajax({
     type: "POST",
     url: "http://hangman-api.herokuapp.com/hangman",

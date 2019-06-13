@@ -28,7 +28,7 @@ h1 {
 
 #container {
   width: 1040px;
-  margin: 0px auto;
+  margin: 25px auto;
   min-height: 750px;
 }
 
@@ -56,21 +56,19 @@ ol#items li {
   padding: 10px 2px 5px;
   border-bottom: 2px solid #E5E2E0;
 }
-
+.dropdown{
+  margin: 0px 10px;
+  border-radius: 5px;
+  font-size: 0.5em;
+  float: right;
+  width:auto; 
+}
 .label {
   padding: 5px 10px;
   border-radius: 5px;
   color: #333333;
   font-size: 0.5em;
   float: right;
-}
-
-.label.pending {
-  background-color: #d95a6a;
-}
-
-.label.success {
-  background-color: #2a8930;
 }
 
 .total {
