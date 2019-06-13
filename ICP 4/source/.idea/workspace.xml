@@ -16,10 +16,19 @@
       <split-first>
         <leaf>
           <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/ICP/Calculator/calculator.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="370">
+                  <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ICP/Todo/todo.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="64" lean-forward="true" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
+                <state relative-caret-position="420">
+                  <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
@@ -28,11 +37,20 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ICP/Todo/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+                <state relative-caret-position="330">
+                  <caret line="22" column="45" lean-forward="true" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/ICP/Calculator/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" column="11" lean-forward="true" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
                 </state>
               </provider>
             </entry>
@@ -97,8 +115,9 @@
       <find>makeDeck</find>
       <find>ng-click</find>
       <find>tile in row</find>
-      <find>game</find>
       <find>tile</find>
+      <find>game</find>
+      <find>newItem</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -112,14 +131,16 @@
         <option value="$PROJECT_DIR$/ICP/Todo/main.css" />
         <option value="$PROJECT_DIR$/ICP/Todo/index.html" />
         <option value="$PROJECT_DIR$/ICP/Todo/todo.js" />
+        <option value="$PROJECT_DIR$/ICP/Calculator/index.html" />
+        <option value="$PROJECT_DIR$/ICP/Calculator/calculator.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1920" />
-    <option name="y" value="151" />
-    <option name="width" value="1919" />
-    <option name="height" value="1075" />
+    <option name="y" value="146" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -138,6 +159,12 @@
               <item name="source" type="b2602c69:ProjectViewProjectNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="ICP" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="source" type="b2602c69:ProjectViewProjectNode" />
+              <item name="source" type="462c0819:PsiDirectoryNode" />
+              <item name="ICP" type="462c0819:PsiDirectoryNode" />
+              <item name="Calculator" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="source" type="b2602c69:ProjectViewProjectNode" />
@@ -192,13 +219,17 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ICP/Todo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ICP" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ICP/Calculator" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ICP" />
       <recent name="$PROJECT_DIR$/ICP/Todo" />
     </key>
   </component>
@@ -214,6 +245,11 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="Debug" type="JavascriptDebugType" uri="file://$PROJECT_DIR$/ICP/Calculator/index.html" useFirstLineBreakpoints="true">
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -224,19 +260,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1560364862657</updated>
-      <workItem from="1560364863978" duration="11557000" />
+      <workItem from="1560364863978" duration="20322000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11557000" />
+    <option name="totallyTimeSpent" value="20322000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="151" width="1919" height="1075" extended-state="6" />
+    <frame x="-1920" y="146" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.015806112" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.18393235" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
@@ -245,7 +281,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39979756" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -308,13 +344,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Usecase/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="93" selection-start-line="16" selection-start-column="89" selection-end-line="16" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Usecase/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-174">
@@ -346,17 +375,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ICP/Calculator/lib/angular/angular.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Usecase/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="93" selection-start-line="16" selection-start-column="89" selection-end-line="16" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ICP/Todo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+        <state relative-caret-position="330">
+          <caret line="22" column="45" lean-forward="true" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ICP/Todo/todo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="64" lean-forward="true" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
+        <state relative-caret-position="420">
+          <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ICP/Calculator/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="11" lean-forward="true" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ICP/Calculator/calculator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
         </state>
       </provider>
     </entry>
