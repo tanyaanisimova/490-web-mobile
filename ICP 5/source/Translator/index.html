@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Translate" class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Translator</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body class="body">
+
+<div ng-controller="Ctrl" style="top: 200px">
+
+    <div id="input-container">
+        <label>Text to translate:
+            <textarea id="text-to-translate" placeholder="Insert text to translate"></textarea>
+        </label>
+    </div>
+
+    <div id="output-container">
+        <label>Translated text:
+            <textarea placeholder="Translated text will appear here">{{translated}}</textarea>
+        </label>
+    </div>
+
+    <button ng-click="translate()">Translate</button>
+</div>
+</body>
+</html>

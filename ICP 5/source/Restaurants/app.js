@@ -25,11 +25,6 @@ angular.module('Restaurants', [])
                             location = venue.location.address + ", " + venue.location.city + ", " + venue.location.country;
                             $scope.venueList.push({name: venue.name, id:venue.id, location:location});
                         })
-                        // $scope.venueList.push({name: data.response.venues[0].name, id:data.response.venues[0].id, location:data.response.venues[0].name.location});
-                        // $scope.venueList.push({name: data.response.venues[1].name, id:data.response.venues[1].id, location:data.response.venues[1].name.location.address + " " + data.response.venues[1].name.location.city + ", " + data.response.venues[1].name.location.country});
-                        // $scope.venueList.push({name: data.response.venues[2].name, id:data.response.venues[2].id, location:data.response.venues[2].name.location});
-                        // $scope.venueList.push({name: data.response.venues[3].name, id:data.response.venues[3].id, location:data.response.venues[3].name.location});
-                        // $scope.venueList.push({name: data.response.venues[4].name, id:data.response.venues[4].id, location:data.response.venues[4].name.location});
                     }
                 })
                 handler.error(function (data) {
