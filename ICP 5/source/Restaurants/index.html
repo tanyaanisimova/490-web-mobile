@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Restaurants" class="no-js">
+<html lang="en" ng-app="myApp" class="no-js">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Restaurants for U</title>
+    <title>Restaurants</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="app.css">
@@ -12,7 +12,7 @@
     <style>
 
         .menu input {
-            width: 300px;
+            width: 30%;
             background: transparent;
             border: 2px solid #1ab188;
             border-radius: 4px;
@@ -25,12 +25,12 @@
         }
 
         .menu button {
-            width: 419px;
-            height: 40px;
+            width: 25%;
+            height: 38px;
             background: #1ab188;
             border: 2px solid #ffffff;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 5px;
             color: #ffffff;
             font-family: 'Exo', sans-serif;
             font-size: 16px;
@@ -83,19 +83,28 @@
             font-style: italic;
             color: #8a97a0;
         }
+
+        li {
+            border: #1ab188 solid 1px;
+            border-radius: 5px;
+            padding-top: 20px;
+            margin-bottom: 10px;
+            background: #e8f4f1;
+        }
+
     </style>
 
 </head>
 
 <body class="body">
 
-<div ng-controller="Ctrl" style="top: 200px">
+<div ng-controller="View1Ctrl" style="top: 200px">
 
     <div class="menu" id="div_SearchContainer">
-        <h1 align="absolute" style="text-align: center; color: #1ab188">Restaurants for U</h1>
-        <input type="text" id="txt_placeName" placeholder="Enter the place you want to search for"
-               style="margin-left: 100px" value="kansas city"/>
-        <input type="text" id="txt_searchFilter" placeholder="Enter the search query" value="thai"/>
+        <h1 align="absolute" style="text-align: center; color: #1ab188">Where should we eat?</h1>
+        <input type="text" id="txt_placeName" placeholder="Location" value="kansas city"
+               style="margin-left: 5%"/>
+        <input type="text" id="txt_searchFilter" placeholder="Pizza, burgers, chicken..." value="pizza"/>
         <button id="btn_getReview" ng-click="getVenues()">Get Venues</button>
     </div>
 
@@ -104,7 +113,10 @@
         <ul>
             <li ng-repeat="venue in venueList"
                 style="font-size: x-large; color: #5e5e5e; text-align: center; list-style: none">
-                <u>{{venue.name + "(" + venue.id + "): " + venue.location}}</u>
+                <u>{{venue.name}}</u>
+                <p>{{"Venue ID: " + venue.id}}</p>
+                <p> {{venue.street}}</p>
+                <p> {{venue.location}}</p>
             </li>
         </ul>
 

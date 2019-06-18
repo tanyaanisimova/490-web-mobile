@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Translate">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="snake.js"></script>
+</head>
+<body ng-controller="Ctrl">
+
+    <div>
+        <span>Score: {{score}}</span>
+        <span>Best Score: {{bestScore}}</span>
+        <span>{{target.x + " " + target.y}}</span>
+    </div>
+    <table>
+
+    </table>
+    <button ng-click="newGame()">Start New Game</button>
+
+</body>
+</html>
