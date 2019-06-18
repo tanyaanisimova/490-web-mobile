@@ -1,23 +1,86 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" ng-app="Translate">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Snake Game</title>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+<!--    <script src="snake.js"></script>-->
+<!--</head>-->
+<!--<body ng-controller="Ctrl">-->
+
+<!--    <div>-->
+<!--        <span>Score: {{score}}</span>-->
+<!--        <span>Best Score: {{bestScore}}</span>-->
+<!--        <span>{{target.x + " " + target.y}}</span>-->
+<!--    </div>-->
+<!--    <table>-->
+
+<!--    </table>-->
+<!--    <button ng-click="newGame()">Start New Game</button>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html lang="en" ng-app="Translate">
+<html ng-app='ngSnake'>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Snake Game</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="snake.js"></script>
+    <style>
+        * {
+            font-family: "Lucida Grande";
+        }
+
+        #gameContainer, #pastScores {
+            width: 600px;
+            float: left;
+        }
+
+        .row {
+            height: 26px;
+        }
+
+        .column {
+            border: 1px solid white;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+        }
+
+        #startGame {
+            width: 120px;
+            padding: 10px;
+            margin-top: 5px;
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+
+        #startGame:hover {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body ng-controller="Ctrl">
 
+<body ng-controller="snakeCtrl">
+
+<div id="gameContainer">
+    <h3>Score: {{score}}</h3>
     <div>
-        <span>Score: {{score}}</span>
-        <span>Best Score: {{bestScore}}</span>
-        <span>{{target.x + " " + target.y}}</span>
+        <div class="row" ng-repeat="column in board">
+            <div class="column"
+                 ng-style="{'background-color': setStyling($parent.$index, $index)}"
+                 ng-repeat="row in column track by $index"
+            ></div>
+        </div>
     </div>
-    <table>
-
-    </table>
-    <button ng-click="newGame()">Start New Game</button>
+    <div id="startGame" ng-click="startGame()">Start Game</div>
+</div>
 
 </body>
+
 </html>
