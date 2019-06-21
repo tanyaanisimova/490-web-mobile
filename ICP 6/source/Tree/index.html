@@ -37,11 +37,29 @@
     .ghostCircle, .activeDrag .ghostCircle{
         display: none;
     }
+    .fixed {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+    }
+    .fixed-add {
+        position: fixed;
+        bottom: 20px;
+        right: 0px;
+    }
+    .fixed-add-input {
+        position: fixed;
+        bottom: 20px;
+        right: 50px;
+    }
 </style>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="dTree.js"></script>
 <body>
+<button id="delete" class="fixed">Delete</button>
+<button id="add" class="fixed-add"">Add</button>
+<input id="add-input" class="fixed-add-input" placeholder="New Node to Add">
 <div id="tree-container"></div>
 </body>
 </html>
