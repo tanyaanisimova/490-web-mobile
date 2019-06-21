@@ -20,8 +20,6 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
 
-//long click to insert
-
 // Get JSON data
 treeJSON = d3.json("treeData.json", function(error, treeData) {
 
@@ -38,9 +36,6 @@ treeJSON = d3.json("treeData.json", function(error, treeData) {
     var i = 0;
     var duration = 750;
     var root;
-
-    var isAdd = false;
-    var isDelete = false;
 
     // size of the diagram
     var viewerWidth = $(document).width();
@@ -78,19 +73,6 @@ treeJSON = d3.json("treeData.json", function(error, treeData) {
 
     }, function(d) {
         return d.children && d.children.length > 0 ? d.children : null;
-    });
-
-    $( "#delete" ).click(function() {
-        isDelete = true;
-    });
-
-    $( "#add" ).click(function() {
-        let newChild = root.children[0];
-        newChild.children = [];
-        totalNodes = totalNodes + 1;
-        newChild.id = totalNodes;
-        newChild.name = "New";
-        root.children.push(newChild);
     });
 
     // sort the tree according to the node names
@@ -239,40 +221,6 @@ treeJSON = d3.json("treeData.json", function(error, treeData) {
             node.attr("transform", "translate(" + d.y0 + "," + d.x0 + ")");
             updateTempConnector();
         }).on("dragend", function(d) {
-            if (isDelete) {
-                nodes = tree.nodes(d);
-                if (nodes.length > 0) {
-                    // remove link paths
-                    links = tree.links(nodes);
-                    nodePaths = svgGroup.selectAll("path.link")
-                        .data(links, function(d) {
-                            return d.target.id;
-                        }).remove();
-                    // remove child nodes
-                    nodesExit = svgGroup.selectAll("g.node")
-                        .data(nodes, function(d) {
-                            return d.id;
-                        }).filter(function(d, i) {
-                            return true;
-                        }).remove();
-                }
-
-                // remove parent link
-                parentLink = tree.links(tree.nodes(d.parent));
-                svgGroup.selectAll('path.link').filter(function(d2, i) {
-                    if (d2.target.id == d.id) {
-                        return true;
-                    }
-                    return false;
-                }).remove();
-                isDelete = false;
-                endDrag();
-                update();
-                return;
-            } else if (isAdd) {
-
-            }
-
             if (d == root) {
                 return;
             }
