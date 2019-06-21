@@ -18,6 +18,8 @@ ICP 4: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%204
 
 ICP 5: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%205
 
+ICP 6: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%206
+
 ## Labs
 
 Lab 1: https://github.com/tanyaanisimova/490-web-mobile/tree/master/Lab%201
