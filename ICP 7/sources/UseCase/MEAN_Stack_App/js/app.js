@@ -40,7 +40,7 @@ myapp.controller('addController',function($scope,$http){
 myapp.controller('homeController',function($scope,$http){
 
     $scope.getData=function(){
-        var req = $http.get('http://127.0.0.1:8081/get');
+        var req = $http.get('http://:::8081/get');
         req.success(function(data, status, headers, config) {
             $scope.bookList = data;
             console.log(data);

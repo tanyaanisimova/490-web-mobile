@@ -8,7 +8,7 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 
-var url='mongodb://foo:foo@ds147668.mlab.com:47668/web_demo';//1.Modify this url with the credentials of your db name and password.
+var url='mongodb+srv://tanisimova:bamboo@cluster0-p5jq1.mongodb.net/library?retryWrites=true&w=majority';//1.Modify this url with the credentials of your db name and password.
 var ObjectID = require('mongodb').ObjectID;
 
 app.use(cors());
