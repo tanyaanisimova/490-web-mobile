@@ -33,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/Snake/snake.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-205">
-              <caret line="60" column="46" lean-forward="true" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+              <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -227,7 +227,7 @@
     <entry file="file://$PROJECT_DIR$/Snake/snake.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-205">
-          <caret line="60" column="46" lean-forward="true" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+          <caret line="60" column="46" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
         </state>
       </provider>
     </entry>
