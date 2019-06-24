@@ -8,19 +8,23 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 
-var url='mongodb+srv://tanisimova:bamboo@cluster0-p5jq1.mongodb.net/library?retryWrites=true&w=majority';//1.Modify this url with the credentials of your db name and password.
+var url='mongodb+srv://tanisimova:bamboo@cluster0-p5jq1.mongodb.net';//1.Modify this url with the credentials of your db name and password.
 var ObjectID = require('mongodb').ObjectID;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.post('/create', function (req, res) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function(err, client) {
         if(err)
         {
             res.write("Failed, Error while connecting to Database");
             res.end();
         }
+
+        var db = client.db('library');
+
         insertDocument(db, req.body, function() {
             res.write("Successfully inserted");
             res.end();
@@ -29,12 +33,14 @@ app.post('/create', function (req, res) {
 });
 
 app.get('/get', function (req, res) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(url, function(err, client) {
         if(err)
         {
             res.write("Failed, Error while connecting to Database");
             res.end();
         }
+
+        var db = client.db('library');
 
         db.collection('books').find().toArray(function(err, result){
             if(err)
@@ -50,11 +56,30 @@ app.get('/get', function (req, res) {
 
         });
     });
-
 });
 
-app.get('/delete/:toBeDeleted_id', function (req, res) {
-    // 2.Connect to MongoDB . Handle the error and write the logic for deleting the desired book
+app.get('/delete/:id', function (req, res) {
+    MongoClient.connect(url, function(err, client) {
+        if(err)
+        {
+            res.write("Failed, Error while connecting to Database");
+            res.end();
+        }
+
+        var db = client.db('library');
+
+        db.collection('books').deleteOne({ _id: new ObjectID(req.params.id) }, function(err, result){
+            if(err)
+            {
+                res.write("delete Failed");
+                res.end();
+            }else
+            {
+                res.write("Successfully deleted");
+                res.end();
+            }
+        });
+    });
 });
 
 
