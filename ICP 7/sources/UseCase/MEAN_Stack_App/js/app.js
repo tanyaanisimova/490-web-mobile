@@ -43,7 +43,6 @@ myapp.controller('homeController',function($scope,$http){
         var req = $http.get('http://localhost:8081/get');
         req.success(function(data, status, headers, config) {
             $scope.bookList = data;
-            console.log(data);
         });
         req.error(function(data, status, headers, config) {
             alert( "failure message: " + JSON.stringify({data: data}));
@@ -60,10 +59,8 @@ myapp.controller('homeController',function($scope,$http){
             });
     };
 
-
     $scope.update = function(book,callback){
-
-        $http.get('http://localhost:8081/update/'+book._id,{params:book})
+        $http.get('http://localhost:8081/update?id='+book._id+'&bookName='+book.bookName+'&authorName='+book.authorName+'&ISBN='+book.ISBN+'&edition='+book.edition+'&noOfCopies='+book.noOfCopies)
             .success(function(data){
                 console.log("Successfully updated");
                 $scope.getData();
