@@ -47,7 +47,6 @@ myapp.controller('homeController',function($scope,$http){
         req.error(function(data, status, headers, config) {
             alert( "failure message: " + JSON.stringify({data: data}));
         });
-
     };
 
     $scope.delete = function(id,callback){
@@ -65,6 +64,29 @@ myapp.controller('homeController',function($scope,$http){
                 console.log("Successfully updated");
                 $scope.getData();
             });
+    }
+
+    $scope.searchBooks = function(isClear,callback){
+        let req;
+        if (isClear) {
+            req = $http.get('http://localhost:8081/get');
+            req.success(function(data, status, headers, config) {
+                $scope.bookList = data;
+            });
+            req.error(function(data, status, headers, config) {
+                alert( "failure message: " + JSON.stringify({data: data}));
+            });
+
+        } else {
+            req = $http.get('http://localhost:8081/search/'+$scope.search);
+            req.success(function(data, status, headers, config) {
+                $scope.search = '';
+                $scope.bookList = data;
+            });
+            req.error(function(data, status, headers, config) {
+                alert( "failure message: " + JSON.stringify({data: data}));
+            });
+        }
     }
 
 });

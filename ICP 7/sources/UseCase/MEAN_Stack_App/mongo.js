@@ -69,6 +69,39 @@ app.get('/get', function (req, res) {
     });
 });
 
+app.get('/search/:term', function (req, res) {
+    MongoClient.connect(url, function(err, client) {
+        if(err)
+        {
+            res.write("Failed, Error while connecting to Database");
+            res.end();
+        }
+
+        const db = client.db('library');
+
+        db.collection('books').find().toArray(function(err, result){
+            if(err)
+            {
+                res.write("get Failed");
+                res.end();
+            }else
+            {
+                let books = [];
+                result.forEach(function (book) {
+                    if (book.authorName.toUpperCase().includes(req.params.term.toUpperCase()) || book.bookName.toUpperCase().includes(req.params.term.toUpperCase()) || book.ISBN.includes(req.params.term)) {
+                        books.push(book);
+                    }
+                })
+
+                const str = JSON.stringify(books);
+                res.send(JSON.stringify(books));
+            }
+            console.log("Got All Documents");
+
+        });
+    });
+});
+
 app.get('/delete/:id', function (req, res) {
     MongoClient.connect(url, function(err, client) {
         if(err)
