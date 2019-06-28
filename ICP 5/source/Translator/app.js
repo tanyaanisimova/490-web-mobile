@@ -8,6 +8,7 @@ angular.module('Translate', [])
         const handler = $http.get("https://dictionary.yandex.net/api/v1/dicservice.json/getLangs" +
             "?key=dict.1.1.20190617T194813Z.ca93ddf313036564.7928044a9aeb1c668e5c64a188d1e8818d62332d"
         );
+
         handler.success(function (data) {
             if (data != null) {
                 data.forEach(function (lang) {

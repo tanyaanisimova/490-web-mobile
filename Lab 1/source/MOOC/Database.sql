@@ -68,65 +68,25 @@ INSERT INTO focus (FocusID, SubjectID, Name) VALUES(19, 3, "Astrology");
 INSERT INTO focus (FocusID, SubjectID, Name) VALUES(20, 3, "Enviornmental Studies");
 INSERT INTO focus (FocusID, SubjectID, Name) VALUES(21, 3, "Physics");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(1, 5, "Java", "This course covers the features of 
-	and princliples needs to program in Java. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(1, 5, "Java", "This course covers the features of and princliples needs to program in Java. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(2, 5, "Javascript", "This course covers the features of 
-	and princliples needs to program in Javascript. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(2, 5, "Javascript", "This course covers the features of and princliples needs to program in Javascript. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(3, 5, "C++", "This course covers the features of 
-	and princliples needs to program in C++. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(3, 5, "C++", "This course covers the features of and princliples needs to program in C++. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(4, 5, "Python", "This course covers the features of 
-	and princliples needs to program in Python. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(4, 5, "Python", "This course covers the features of and princliples needs to program in Python. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(5, 5, "ML", "This course covers the features of 
-	and princliples needs to program in ML. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(5, 5, "ML", "This course covers the features of and princliples needs to program in ML. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(6, 5, "C#", "This course covers the features of 
-	and princliples needs to program in C#. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(6, 5, "C#", "This course covers the features of and princliples needs to program in C#. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(7, 5, "PHP", "This course covers the features of 
-	and princliples needs to program in PHP. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(7, 5, "PHP", "This course covers the features of and princliples needs to program in PHP. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(8, 5, "Ruby", "This course covers the features of 
-	and princliples needs to program in Ruby. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(8, 5, "Ruby", "This course covers the features of and princliples needs to program in Ruby. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(9, 5, "SQL", "This course covers the features of 
-	and princliples needs to program with SQL. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(9, 5, "SQL", "This course covers the features of and princliples needs to program with SQL. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
-INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(10, 5, "Go", "This course covers the features of 
-	and princliples needs to program in GO. Sections include: formal aspects of syntax and semantics, naming, 
-	scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, 
-	exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, 
-	environments and tools");
+INSERT INTO course (CourseID, FocusID, Name, Description) VALUES(10, 5, "Go", "This course covers the features of and princliples needs to program in GO. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 
 
 

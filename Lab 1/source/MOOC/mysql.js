@@ -1,15 +1,8 @@
-/**
- * Created by karthik on 7/14/17.
- */
-//var MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const bodyParser = require("body-parser");
 const express = require('express');
 const cors = require('cors');
 const app = express();
-
-//const url = 'mongodb+srv://tanisimova:bamboo@cluster0-p5jq1.mongodb.net';//1.Modify this url with the credentials of your db name and password.
-//const ObjectID = require('mongodb').ObjectID;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -35,6 +28,87 @@ app.get('/getCourses', function (req, res) {
         if (err) throw err
 
         connection.query('select * from subject order by Name', function (error, result, fields) {
+            if (error) {
+                res.write("get Failed");
+                res.end();
+
+            } else {
+                res.send(JSON.stringify(result));
+            }
+
+            connection.end()
+        })
+    })
+});
+
+app.get('/getSubject/:id', function (req, res) {
+    var connection = mysql.createConnection({
+        host: sensitive.host,
+        user: sensitive.user,
+        password: sensitive.password,
+        database: sensitive.database
+    })
+
+    connection.connect(function(err) {
+        if (err) throw err
+
+        let sql = 'select * from focus where SubjectID=? order by Name';
+
+        connection.query(sql, [req.params.id], function (error, result) {
+            if (error) {
+                res.write("get Failed");
+                res.end();
+
+            } else {
+                res.send(JSON.stringify(result));
+            }
+
+            connection.end()
+        })
+    })
+});
+
+app.get('/getFocus/:id', function (req, res) {
+    var connection = mysql.createConnection({
+        host: sensitive.host,
+        user: sensitive.user,
+        password: sensitive.password,
+        database: sensitive.database
+    })
+
+    connection.connect(function(err) {
+        if (err) throw err
+
+        let sql = 'select * from course where FocusID=? order by Name';
+
+        connection.query(sql, [req.params.id], function (error, result) {
+            if (error) {
+                res.write("get Failed");
+                res.end();
+
+            } else {
+                res.send(JSON.stringify(result));
+            }
+
+            connection.end()
+        })
+    })
+});
+
+app.get('/getCourse/:id', function (req, res) {
+    var connection = mysql.createConnection({
+        host: sensitive.host,
+        user: sensitive.user,
+        password: sensitive.password,
+        database: sensitive.database
+    })
+
+    connection.connect(function(err) {
+        if (err) throw err
+
+        let sql = 'select * from course where CourseID=?';
+
+        connection.query(sql, [req.params.id], function (error, result) {
             if (error) {
                 res.write("get Failed");
                 res.end();

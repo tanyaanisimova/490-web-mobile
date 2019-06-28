@@ -1,7 +1,5 @@
-/**
- * Created by karthik on 7/14/17.
- */
-var myapp = angular.module('app',[]);
+const myapp = angular.module('app', []);
+
 myapp.run(function ($http) {
     // Sends this header with any AJAX request
     $http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -9,62 +7,89 @@ myapp.run(function ($http) {
     $http.defaults.headers.post['dataType'] = 'json'
 });
 
-myapp.controller('addController',function($scope,$http){
-    $scope.addbook = function(){
-        console.log($scope.bookName);
+myapp.controller('Ctrl',function($scope,$http){
+    $scope.subjectList = [];
+    $scope.focusList = [];
+    $scope.courseList = [];
+    $scope.courseData = {};
 
-        var dataParams = {
-            'bookName' : $scope.bookName,
-            'authorName' : $scope.authorName,
-            'noOfCopies' : $scope.noOfCopies,
-            'edition' : $scope.edition,
-            'ISBN':$scope.ISBN
-        };
-        var config = {
-            headers : {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-            }
-        };
-        var req = $http.post('http://localhost:8081/create',dataParams);
-        req.success(function(data, status, headers, config) {
-            $scope.message = data;
-            console.log(data);
-        });
-        req.error(function(data, status, headers, config) {
-            alert( "failure message: " + JSON.stringify({data: data}));
-        });
-    };
-});
+    $scope.subjectDiv = $("#subject_list");
+    $scope.focusDiv = $("#focus_list");
+    $scope.courseDiv = $("#course_list");
+    $scope.courseItemDiv = $("#course_item");
 
-
-myapp.controller('homeController',function($scope,$http){
-
-    $scope.getData=function(){
+    $scope.getData = function(){
         const req = $http.get('http://localhost:8081/getCourses');
         req.success(function(data, status, headers, config) {
-            $scope.bookList = data;
+            $scope.subjectList = data;
         });
         req.error(function(data, status, headers, config) {
             alert( "failure message: " + JSON.stringify({data: data}));
         });
-
     };
 
-    $scope.delete = function(id,callback){
+    $scope.showSubject = function (id) {
+        const req = $http.get('http://localhost:8081/getSubject/'+id);
+        req.success(function(data, status, headers, config) {
+            if (!$scope.subjectDiv.hasClass("hidden")) {
+                $scope.subjectDiv.addClass("hidden");
+            }
+            if ($scope.focusDiv.hasClass("hidden")) {
+                $scope.focusDiv.removeClass("hidden");
+            }
+            $scope.subjectList = [];
+            $scope.focusList = data;
+        });
+        req.error(function(data, status, headers, config) {
+            alert( "failure message: " + JSON.stringify({data: data}));
+        });
+    }
 
-        $http.get('http://localhost:8081/delete/'+id)
-            .success(function(data){
-                console.log("Successfully deleted");
-                $scope.getData();
-            });
-    };
+    $scope.showFocus = function (id) {
+        const req = $http.get('http://localhost:8081/getFocus/'+id);
+        req.success(function(data, status, headers, config) {
+            if (!$scope.focusDiv.hasClass("hidden")) {
+                $scope.focusDiv.addClass("hidden");
+            }
+            if ($scope.courseDiv.hasClass("hidden")) {
+                $scope.courseDiv.removeClass("hidden");
+            }
+            $scope.focusList = [];
+            $scope.courseList = data;
+        });
+        req.error(function(data, status, headers, config) {
+            alert( "failure message: " + JSON.stringify({data: data}));
+        });
+    }
 
-    $scope.update = function(book,callback){
-        $http.get('http://localhost:8081/update?id='+book._id+'&bookName='+book.bookName+'&authorName='+book.authorName+'&ISBN='+book.ISBN+'&edition='+book.edition+'&noOfCopies='+book.noOfCopies)
-            .success(function(data){
-                console.log("Successfully updated");
-                $scope.getData();
-            });
+    $scope.showCourse = function (id) {
+        const req = $http.get('http://localhost:8081/getCourse/'+id);
+        req.success(function(data, status, headers, config) {
+            if (!$scope.courseDiv.hasClass("hidden")) {
+                $scope.courseDiv.addClass("hidden");
+            }
+            if ($scope.courseItemDiv.hasClass("hidden")) {
+                $scope.courseItemDiv.removeClass("hidden");
+            }
+            $scope.courseList = [];
+            $scope.courseData = data[0];
+        });
+        req.error(function(data, status, headers, config) {
+            alert( "failure message: " + JSON.stringify({data: data}));
+        });
     }
 });
 
+// myapp.controller('courseController',function($scope,$http,$routeParams){
+//     $scope.getData = function(){
+//         $scope.id=$routeParams.id;
+//         const req = $http.get('http://localhost:8081/getCourses');
+//         req.success(function(data, status, headers, config) {
+//             $scope.courseList = data;
+//         });
+//         req.error(function(data, status, headers, config) {
+//             alert( "failure message: " + JSON.stringify({data: data}));
+//         });
+//
+//     };
+// });

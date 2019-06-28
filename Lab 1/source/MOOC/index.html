@@ -2,12 +2,82 @@
   <head>
 	  <title>Home Page</title>
 	  <script src="js/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	  <script src="js/app.js"></script>
 	  <style type="text/css">
+		  h2 {
+			  text-align: center;
+			  color: #1ab188;
+		  }
+		  li {
+			  border: #1ab188 solid 1px;
+			  border-radius: 5px;
+			  margin-bottom: 10px;
+			  color: gray(30%);
+			  background: #e8f4f1;
+			  font-size: x-large;
+			  font-weight: 400;
+			  color: #5e5e5e;
+			  list-style: none;
+			  padding: 20px 0 20px 25px;
+		  }
+		  li:hover {
+			  background: #1ab188;
+			  font-weight: 900;
+			  color: white;
+			  box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2), 4px 8px 40px 5px rgba(0, 0, 0, 0.19);
+		  }
+		  .hidden {
+			  display: none;
+		  }
 	  </style>
   </head>
 
-  <body ng-app="app" ng-controller="homeController" ng-init="getData()">
+  <body ng-app="app" ng-controller="Ctrl" ng-init="getData()">
+
+	  <div id="subject_list">
+		  <h2> Subjects Offered: </h2>
+		  <ul>
+			  <li ng-repeat="subject in subjectList" ng-click="showSubject(subject.SubjectID)">
+				  <u>{{subject.Name}}</u>
+			  </li>
+		  </ul>
+	  </div>
+
+	  <div id="focus_list" class="hidden">
+		  <h2> Focus Areas Offered: </h2>
+		  <ul>
+			  <li ng-repeat="focusArea in focusList" ng-click="showFocus(focusArea.FocusID)">
+				  <u>{{focusArea.Name}}</u>
+			  </li>
+		  </ul>
+	  </div>
+
+	  <div id="course_list" class="hidden">
+		  <h2> Courses Offered: </h2>
+		  <ul>
+			  <li ng-repeat="courseItem in courseList" ng-click="showCourse(courseItem.CourseID)">
+				  <u>{{courseItem.Name}}</u>
+			  </li>
+		  </ul>
+	  </div>
+
+	  <div id="course_item" class="hidden">
+		  <h2>{{courseData.Name}}</h2>
+		  <p>{{courseData.Description}}</p>
+		  <p>{{courseData.isEnrolled}}</p>
+	  </div>
+
+<!--	  <div id="course_list" class="hidden">-->
+<!--		  <h2 style="text-align: center; color: #1ab188"> Courses Offered: </h2>-->
+<!--		  <ul>-->
+<!--			  <li ng-repeat="courseItem in courseList" ng-click=showCourse(courseItem.CourseID)"-->
+<!--				  style="font-size: x-large; color: #5e5e5e; list-style: none; padding-left:20px">-->
+<!--				  <u>{{courseItem.Name}}</u>-->
+<!--				  <p>{{courseItem.Description}}</p>-->
+<!--			  </li>-->
+<!--		  </ul>-->
+<!--	  </div>-->
 
   </body>
 </html>
