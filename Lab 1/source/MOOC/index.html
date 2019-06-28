@@ -30,15 +30,42 @@
 		  .hidden {
 			  display: none;
 		  }
+		  .navBtn {
+			  border: none;
+			  background: none;
+			  font-size: 15px;
+		   }
+		  .navBtn:hover {
+			  cursor: pointer;
+		  }
+		  #navigation {
+			  padding: 10px;
+			  height: 30px;
+		  }
 	  </style>
   </head>
 
-  <body ng-app="app" ng-controller="Ctrl" ng-init="getData()">
+  <body ng-app="app" ng-controller="Ctrl" ng-init="getSubjects()">
+
+  	<div id="navigation">
+		<span id="home_nav">
+			<button class="navBtn" ng-click="getSubjects()">Home</button>
+		</span>
+		<span id="subject_nav" class="hidden">
+			> <button class="navBtn">Subject</button>
+		</span>
+		<span id="focus_nav" class="hidden">
+			> <button class="navBtn">Focus Area</button>
+		</span>
+		<span id="course_nav" class="hidden">
+			> <button class="navBtn">Course</button>
+		</span>
+	</div>
 
 	  <div id="subject_list">
 		  <h2> Subjects Offered: </h2>
 		  <ul>
-			  <li ng-repeat="subject in subjectList" ng-click="showSubject(subject.SubjectID)">
+			  <li ng-repeat="subject in subjectList" ng-click="showSubject(subject.SubjectID, subject.Name)">
 				  <u>{{subject.Name}}</u>
 			  </li>
 		  </ul>
@@ -47,7 +74,7 @@
 	  <div id="focus_list" class="hidden">
 		  <h2> Focus Areas Offered: </h2>
 		  <ul>
-			  <li ng-repeat="focusArea in focusList" ng-click="showFocus(focusArea.FocusID)">
+			  <li ng-repeat="focusArea in focusList" ng-click="showFocus(focusArea.FocusID, focusArea.Name)">
 				  <u>{{focusArea.Name}}</u>
 			  </li>
 		  </ul>
@@ -56,7 +83,7 @@
 	  <div id="course_list" class="hidden">
 		  <h2> Courses Offered: </h2>
 		  <ul>
-			  <li ng-repeat="courseItem in courseList" ng-click="showCourse(courseItem.CourseID)">
+			  <li ng-repeat="courseItem in courseList" ng-click="showCourse(courseItem.CourseID, courseItem.Name)">
 				  <u>{{courseItem.Name}}</u>
 			  </li>
 		  </ul>
@@ -67,17 +94,5 @@
 		  <p>{{courseData.Description}}</p>
 		  <p>{{courseData.isEnrolled}}</p>
 	  </div>
-
-<!--	  <div id="course_list" class="hidden">-->
-<!--		  <h2 style="text-align: center; color: #1ab188"> Courses Offered: </h2>-->
-<!--		  <ul>-->
-<!--			  <li ng-repeat="courseItem in courseList" ng-click=showCourse(courseItem.CourseID)"-->
-<!--				  style="font-size: x-large; color: #5e5e5e; list-style: none; padding-left:20px">-->
-<!--				  <u>{{courseItem.Name}}</u>-->
-<!--				  <p>{{courseItem.Description}}</p>-->
-<!--			  </li>-->
-<!--		  </ul>-->
-<!--	  </div>-->
-
   </body>
 </html>
