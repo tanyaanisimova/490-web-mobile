@@ -25,11 +25,25 @@ myapp.controller('Ctrl',function($scope,$http,$compile){
     $scope.focusNav = $("#focus_nav");
     $scope.courseNav = $("#course_nav");
 
+    $scope.noSubjectsDiv = $("#no_subjects");
+    $scope.noFocusesDiv = $("#no_focus_areas");
+    $scope.noCoursesDiv = $("#no_courses");
+
     $scope.getSubjects = function(){
         const req = $http.get('http://localhost:8081/getCourses');
         req.success(function(data, status, headers, config) {
             showAndHide(0, null);
             $scope.subjectList = data;
+
+            if ($scope.subjectList.length === 0) {
+                if ($scope.noSubjectsDiv.hasClass('hidden')) {
+                    $scope.noSubjectsDiv.removeClass('hidden');
+                }
+            } else {
+                if (!$scope.noSubjectsDiv.hasClass('hidden')) {
+                    $scope.noSubjectsDiv.addClass('hidden');
+                }
+            }
         });
         req.error(function(data, status, headers, config) {
             alert( "failure message: " + JSON.stringify({data: data}));
@@ -41,6 +55,16 @@ myapp.controller('Ctrl',function($scope,$http,$compile){
         req.success(function(data, status, headers, config) {
             showAndHide(1, {id: id, name: name});
             $scope.focusList = data;
+
+            if ($scope.focusList.length === 0) {
+                if ($scope.noFocusesDiv.hasClass('hidden')) {
+                    $scope.noFocusesDiv.removeClass('hidden');
+                }
+            } else {
+                if (!$scope.noFocusesDiv.hasClass('hidden')) {
+                    $scope.noFocusesDiv.addClass('hidden');
+                }
+            }
         });
         req.error(function(data, status, headers, config) {
             alert( "failure message: " + JSON.stringify({data: data}));
@@ -52,6 +76,21 @@ myapp.controller('Ctrl',function($scope,$http,$compile){
         req.success(function(data, status, headers, config) {
             showAndHide(2, {id: id, name: name});
             $scope.courseList = data;
+            if (data.length === 0 && !$scope.noCoursesDiv.hasClass('hidden')) {
+                $scope.noCoursesDiv.addClass('hidden');
+            } else {
+                $scope.noCoursesDiv.removeClass('hidden');
+            }
+
+            if ($scope.courseList.length === 0) {
+                if ($scope.noCoursesDiv.hasClass('hidden')) {
+                    $scope.noCoursesDiv.removeClass('hidden');
+                }
+            } else {
+                if (!$scope.noCoursesDiv.hasClass('hidden')) {
+                    $scope.noCoursesDiv.addClass('hidden');
+                }
+            }
         });
         req.error(function(data, status, headers, config) {
             alert( "failure message: " + JSON.stringify({data: data}));
