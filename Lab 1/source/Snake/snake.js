@@ -1,60 +1,64 @@
 angular.module('Snake', [])
     .controller('snakeCtrl', function($scope, $timeout, $window) {
-        const BOARD_SIZE = 20;
+        //board constants
+        const SIZE = 20;
 
-        const DIRECTIONS = {
+        const STYLE = {
+            GAME_OVER: '#445859',
+            TARGET: '#E26758',
+            HEAD: '#396F7A',
+            BODY: '#CCF8C7',
+            BOARD: '#88B3BA'
+        };
+
+        //setup enums
+        let fruit = {
+            x: -1,
+            y: -1
+        };
+
+        const KEY_DIRECTIONS = {
             LEFT: 37,
             UP: 38,
             RIGHT: 39,
             DOWN: 40
         };
 
-        const COLORS = {
-            GAME_OVER: '#445859',
-            FRUIT: '#E26758',
-            SNAKE_HEAD: '#396F7A',
-            SNAKE_BODY: '#CCF8C7',
-            BOARD: '#88B3BA'
-        };
-
         let snake = {
-            direction: DIRECTIONS.LEFT,
+            direction: KEY_DIRECTIONS.LEFT,
             parts: [{
                 x: -1,
                 y: -1
             }]
         };
 
-        let fruit = {
-            x: -1,
-            y: -1
-        };
+        let interval, isGameOver, tempDirection;
 
-        let interval, tempDirection, isGameOver;
-
-        $scope.score = 0;
         $scope.bestScore = 0;
+        $scope.score = 0;
 
+        //used by ng-style to style the board
         $scope.setStyling = function(col, row) {
             if (isGameOver)  {
-                return COLORS.GAME_OVER;
+                return STYLE.GAME_OVER;
             } else if (fruit.x == row && fruit.y == col) {
-                return COLORS.FRUIT;
+                return STYLE.TARGET;
             } else if (snake.parts[0].x == row && snake.parts[0].y == col) {
-                return COLORS.SNAKE_HEAD;
+                return STYLE.HEAD;
             } else if ($scope.board[col][row] === true) {
-                return COLORS.SNAKE_BODY;
+                return STYLE.BODY;
             }
-            return COLORS.BOARD;
+            return STYLE.BOARD;
         };
 
-        function update() {
-            const newHead = getNewHead();
+        //updates states
+        function updateBoard() {
+            const newHead = getHead();
 
-            if (boardCollision(newHead) || selfCollision(newHead)) {
+            if (boardCrash(newHead) || selfCrash(newHead)) {
                 return gameOver();
-            } else if (fruitCollision(newHead)) {
-                eatFruit();
+            } else if (fruitCrash(newHead)) {
+                eatTarget();
             }
 
             // Remove tail
@@ -67,54 +71,55 @@ angular.module('Snake', [])
 
             // Do it again
             snake.direction = tempDirection;
-            $timeout(update, interval);
+            $timeout(updateBoard, interval);
         }
 
-        function getNewHead() {
+        function getHead() {
             const newHead = angular.copy(snake.parts[0]);
 
             // Update Location
-            if (tempDirection === DIRECTIONS.LEFT) {
+            if (tempDirection === KEY_DIRECTIONS.LEFT) {
                 newHead.x -= 1;
-            } else if (tempDirection === DIRECTIONS.RIGHT) {
+            } else if (tempDirection === KEY_DIRECTIONS.RIGHT) {
                 newHead.x += 1;
-            } else if (tempDirection === DIRECTIONS.UP) {
+            } else if (tempDirection === KEY_DIRECTIONS.UP) {
                 newHead.y -= 1;
-            } else if (tempDirection === DIRECTIONS.DOWN) {
+            } else if (tempDirection === KEY_DIRECTIONS.DOWN) {
                 newHead.y += 1;
             }
             return newHead;
         }
 
-        function boardCollision(part) {
-            return part.x === BOARD_SIZE || part.x === -1 || part.y === BOARD_SIZE || part.y === -1;
+        //check for collisions
+        function boardCrash(part) {
+            return part.x === SIZE || part.x === -1 || part.y === SIZE || part.y === -1;
         }
 
-        function selfCollision(part) {
+        function selfCrash(part) {
             return $scope.board[part.y][part.x] === true;
         }
 
-        function fruitCollision(part) {
+        function fruitCrash(part) {
             return part.x === fruit.x && part.y === fruit.y;
         }
 
-        function resetFruit() {
-            const x = Math.floor(Math.random() * BOARD_SIZE);
-            const y = Math.floor(Math.random() * BOARD_SIZE);
+        function resetTarget() {
+            const x = Math.floor(Math.random() * SIZE);
+            const y = Math.floor(Math.random() * SIZE);
 
             if ($scope.board[y][x] === true) {
-                return resetFruit();
+                return resetTarget();
             }
             fruit = {x: x, y: y};
         }
 
-        function eatFruit() {
+        function eatTarget() {
             $scope.score++;
 
             // Grow by 1
             const tail = angular.copy(snake.parts[snake.parts.length - 1]);
             snake.parts.push(tail);
-            resetFruit();
+            resetTarget();
 
             if ($scope.score % 5 === 0) {
                 interval -= 15;
@@ -132,36 +137,24 @@ angular.module('Snake', [])
                 isGameOver = false;
             },500);
 
-            setupBoard();
+            setup();
         }
 
-        function setupBoard() {
+        function setup() {
             $scope.board = [];
-            for (let i = 0; i < BOARD_SIZE; i++) {
+            for (let i = 0; i < SIZE; i++) {
                 $scope.board[i] = [];
-                for (let j = 0; j < BOARD_SIZE; j++) {
+                for (let j = 0; j < SIZE; j++) {
                     $scope.board[i][j] = false;
                 }
             }
         }
-        setupBoard();
-
-        $window.addEventListener("keyup", function(e) {
-            if (e.keyCode === DIRECTIONS.LEFT && snake.direction !== DIRECTIONS.RIGHT) {
-                tempDirection = DIRECTIONS.LEFT;
-            } else if (e.keyCode === DIRECTIONS.UP && snake.direction !== DIRECTIONS.DOWN) {
-                tempDirection = DIRECTIONS.UP;
-            } else if (e.keyCode === DIRECTIONS.RIGHT && snake.direction !== DIRECTIONS.LEFT) {
-                tempDirection = DIRECTIONS.RIGHT;
-            } else if (e.keyCode === DIRECTIONS.DOWN && snake.direction !== DIRECTIONS.UP) {
-                tempDirection = DIRECTIONS.DOWN;
-            }
-        });
+        setup();
 
         $scope.startGame = function() {
             $scope.score = 0;
-            snake = {direction: DIRECTIONS.LEFT, parts: []};
-            tempDirection = DIRECTIONS.LEFT;
+            snake = {direction: KEY_DIRECTIONS.LEFT, parts: []};
+            tempDirection = KEY_DIRECTIONS.LEFT;
             isGameOver = false;
             interval = 150;
 
@@ -169,7 +162,19 @@ angular.module('Snake', [])
             for (let i = 0; i < 5; i++) {
                 snake.parts.push({x: 10 + i, y: 10});
             }
-            resetFruit();
-            update();
+            resetTarget();
+            updateBoard();
         };
+
+        $window.addEventListener("keyup", function(event) {
+            if (event.keyCode === KEY_DIRECTIONS.LEFT && snake.direction !== KEY_DIRECTIONS.RIGHT) {
+                tempDirection = KEY_DIRECTIONS.LEFT;
+            } else if (event.keyCode === KEY_DIRECTIONS.UP && snake.direction !== KEY_DIRECTIONS.DOWN) {
+                tempDirection = KEY_DIRECTIONS.UP;
+            } else if (event.keyCode === KEY_DIRECTIONS.RIGHT && snake.direction !== KEY_DIRECTIONS.LEFT) {
+                tempDirection = KEY_DIRECTIONS.RIGHT;
+            } else if (event.keyCode === KEY_DIRECTIONS.DOWN && snake.direction !== KEY_DIRECTIONS.UP) {
+                tempDirection = KEY_DIRECTIONS.DOWN;
+            }
+        });
     });
