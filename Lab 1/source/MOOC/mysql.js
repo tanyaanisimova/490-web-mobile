@@ -16,7 +16,44 @@ var sensitive = {
     "database": "mooc"
 };
 
-app.get('/getCourses', function (req, res) {
+app.get('/getOrders', function (req, res) {
+    var connection = mysql.createConnection({
+        host: sensitive.host,
+        user: sensitive.user,
+        password: sensitive.password,
+        database: sensitive.database
+    })
+
+    connection.connect(function(err) {
+        if (err) throw err
+
+        connection.query('select * from course where CourseStatus = \'enrolled\'', function (error, result, fields) {
+            if (error) {
+                res.write("get Failed");
+                res.end();
+
+            } else {
+                let orders = [];
+                orders.push(result);
+
+                connection.query('select * from course where CourseStatus = \'completed\'', function (error, compResult, fields) {
+                    if (error) {
+                        res.write("get Failed");
+                        res.end();
+
+                    } else {
+                        orders.push(compResult);
+                        res.send(JSON.stringify(orders));
+                    }
+
+                    connection.end()
+                })
+            }
+        })
+    })
+});
+
+app.get('/getSubjects', function (req, res) {
     var connection = mysql.createConnection({
         host: sensitive.host,
         user: sensitive.user,
@@ -114,6 +151,52 @@ app.get('/getCourse/:id', function (req, res) {
                 res.end();
 
             } else {
+
+                sql = "select C.Name, C.Description, C.CourseStatus, C.CourseID, C.FocusID from pre_requisite as P " +
+                    "join course as C on P.PreReqCourseID=C.CourseID where P.CourseID=?"
+                connection.query(sql, [req.params.id], function (error, reqResult) {
+                    if (error) {
+                        res.write("get Failed");
+                        res.end();
+
+                    } else {
+                        result[0].preReqs = reqResult;
+                        let canEnroll = true;
+                        reqResult.forEach(function (item) {
+                            if (item.CourseStatus !== "completed") {
+                                canEnroll = false;
+                            }
+                        })
+                        result[0].CanEnroll = canEnroll;
+                        res.send(JSON.stringify(result[0]));
+                    }
+
+                    connection.end()
+                })
+            }
+        })
+    })
+});
+
+app.post('/enroll/:id', function (req, res) {
+    var connection = mysql.createConnection({
+        host: sensitive.host,
+        user: sensitive.user,
+        password: sensitive.password,
+        database: sensitive.database
+    })
+
+    connection.connect(function(err) {
+        if (err) throw err
+
+        let sql = "UPDATE course SET CourseStatus='enrolled' WHERE CourseID=?";
+
+        connection.query(sql, [req.params.id], function (error, result) {
+            if (error) {
+                res.write("enrollment Failed");
+                res.end();
+
+            } else {
                 res.send(JSON.stringify(result));
             }
 
@@ -122,116 +205,32 @@ app.get('/getCourse/:id', function (req, res) {
     })
 });
 
-// const insertDocument = function(db, data, res, callback) {
-//     db.collection('books').insertOne( data, function(err) {
-//         if(err)
-//         {
-//             res.write("Insert Failed, Error While Inserting");
-//             res.end();
-//         }
-//         console.log("Inserted a document into the books collection.");
-//         callback();
-//     });
-// };
-// app.post('/create', function (req, res) {
-//     MongoClient.connect(url, function(err, client) {
-//         if(err)
-//         {
-//             res.write("Failed, Error while connecting to Database");
-//             res.end();
-//         }
-//
-//         const db = client.db('library');
-//
-//         insertDocument(db, req.body, res, function() {
-//             res.write("Successfully inserted");
-//             res.end();
-//         });
-//     });
-// });
-//
-// app.get('/get', function (req, res) {
-//     MongoClient.connect(url, function(err, client) {
-//         if(err)
-//         {
-//             res.write("Failed, Error while connecting to Database");
-//             res.end();
-//         }
-//
-//         const db = client.db('library');
-//
-//         db.collection('books').find().toArray(function(err, result){
-//             if(err)
-//             {
-//                 res.write("get Failed");
-//                 res.end();
-//             }else
-//             {
-//
-//                 res.send(JSON.stringify(result));
-//             }
-//             console.log("Got All Documents");
-//
-//         });
-//     });
-// });
-//
-// app.get('/delete/:id', function (req, res) {
-//     MongoClient.connect(url, function(err, client) {
-//         if(err)
-//         {
-//             res.write("Failed, Error while connecting to Database");
-//             res.end();
-//         }
-//
-//         const db = client.db('library');
-//
-//         db.collection('books').deleteOne({ _id: new ObjectID(req.params.id) }, function(err){
-//             if(err)
-//             {
-//                 res.write("delete Failed");
-//                 res.end();
-//             }else
-//             {
-//                 res.write("Successfully deleted");
-//                 res.end();
-//             }
-//         });
-//     });
-// });
-//
-//
-// app.get('/update', function (req, res) {
-//     MongoClient.connect(url, function(err, client) {
-//         if(err)
-//         {
-//             res.write("Failed, Error while connecting to Database");
-//             res.end();
-//         }
-//
-//         const db = client.db('library');
-//
-//         const query = { _id: new ObjectID(req.query.id) };
-//         const values = { $set: {bookName: req.query.bookName,
-//                 authorName: req.query.authorName,
-//                 noOfCopies: req.query.noOfCopies,
-//                 edition: req.query.edition,
-//                 ISBN:req.query.ISBN } };
-//
-//         db.collection('books').updateOne(query, values, function(err, result) {
-//             if(err)
-//             {
-//                 res.write("update Failed");
-//                 res.end();
-//             }else
-//             {
-//                 res.write("Successfully deleted");
-//                 res.end();
-//             }
-//         });
-//     });
-// });
+app.post('/drop/:id', function (req, res) {
+    var connection = mysql.createConnection({
+        host: sensitive.host,
+        user: sensitive.user,
+        password: sensitive.password,
+        database: sensitive.database
+    })
 
+    connection.connect(function(err) {
+        if (err) throw err
+
+        let sql = "UPDATE course SET CourseStatus='none' WHERE CourseID=?";
+
+        connection.query(sql, [req.params.id], function (error, result) {
+            if (error) {
+                res.write("enrollment Failed");
+                res.end();
+
+            } else {
+                res.send(JSON.stringify(result));
+            }
+
+            connection.end()
+        })
+    })
+});
 
 const server = app.listen(8081, function () {
     const host = server.address().address;
