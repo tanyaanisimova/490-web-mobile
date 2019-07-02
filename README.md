@@ -8,20 +8,26 @@ Jordan Carlo Tiu: https://github.com/jordantiu/CS490-Web-Cloud-Mobile-Programmin
 
 ## ICP Assignments
 
-ICP 1: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%201
+### Module 1: Web Programming
 
-ICP 2: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%202
+ICP 1: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP1
 
-ICP 3: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%203
+ICP 2: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP2
 
-ICP 4: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%204
+ICP 3: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP3
 
-ICP 5: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%205
+ICP 4: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP4
 
-ICP 6: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%206
+ICP 5: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP5
 
-ICP 7: https://github.com/tanyaanisimova/490-web-mobile/tree/master/ICP%207
+ICP 6: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP6
+
+ICP 7: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M1%20ICP7
+
+### Module 2: Mobile Programming
+
+ICP 1: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M2%20ICP1
 
 ## Labs
 
-Lab 1: https://github.com/tanyaanisimova/490-web-mobile/tree/master/Lab%201
+Module 1 Lab: https://github.com/tanyaanisimova/490-web-mobile/tree/master/Lab%201
