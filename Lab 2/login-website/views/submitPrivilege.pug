@@ -1,0 +1,87 @@
+extends layout
+
+block variables
+  - var title = "Submit Privilege"
+  - var setID = data['setID']
+  - var privilegeID = data['privilegeID']
+  - var setName = data['setName']
+  - var isEmailEmpty = data['isEmailEmpty']
+  - var isPrivilegesEmpty = data['isPrivilegesEmpty']
+  - var isInvalid = data['isInvalid']
+  - var isYou = data['isYou']
+  - var email = data['email']
+  - var privileges = data['privileges']
+  if (privilegeID == null)
+    - var title = "Add Privileges"
+  else 
+    - var title = "Edit Privileges"
+
+block content
+  h2.text-center #{title}
+
+  form(method='POST' action='/submitPrivilege')
+    div.form-group
+      input.form-control(type='hidden', name='setID', value=setID)
+      input.form-control(type='hidden', name='privilegeID', value=privilegeID)
+
+      if isEmailEmpty || isPrivilegesEmpty
+        if isEmailEmpty
+          div.error The email feild is required
+        if isPrivilegesEmpty
+          div.error Must select at least one privilege
+      else if isInvalid
+        div.error There is no user with the email address: #{email}
+      else if isYou
+        div.error Can't add privileges to yourself
+
+      input.form-control(type='text', name='setName', value=setName, hidden=true)
+
+      label Set Name:
+      input.form-control(type='text', value=setName, disabled=true)
+
+      <br>
+
+      if privilegeID == null 
+        label(for='email') Email:
+        input.form-control(type='text', placeholder='Email', name='email', value=email, maxlength=128)
+      else 
+        input.form-control(type='text', name='email', value=email, hidden=true)
+        label(for='email') Email:
+        input.form-control(type='text', value=email, disabled=true)
+
+      <br><br>
+      
+      label Select Privileges:
+
+      <br>
+
+      input.form-check-input(type='checkbox', name='owner', checked=privileges[0])
+      label.form-check-label(for='owner') Owner
+
+      <br>
+
+      input.form-check-input(type='checkbox', name='copy', checked=privileges[1])
+      label.form-check-label(for='copy') Copy
+
+      <br>
+
+      input.form-check-input(type='checkbox', name='view', checked=privileges[2])
+      label.form-check-label(for='view') View
+
+    button.btn(type='button' onclick='back('+setID+')') Cancel
+    button.btn.submit(type='submit') Submit
+    if (privilegeID != null)
+      button.btn.delete(type='button' onclick='deletePrivileges('+setID+', '+privilegeID+', "'+email+'")') Delete
+
+  script.
+    function back(setID) {
+      window.location.href = '/set/?setID=' + setID
+    }
+
+    function deletePrivileges(setID, privilegeID, email) {
+      var result = confirm('Are you sure you want to delete all privileges for '+email+'?')
+      if (result == true) {
+        window.location.href = '/deletePrivilege/?privilegeID=' + privilegeID + '&setID=' + setID
+      }
+    }
+  

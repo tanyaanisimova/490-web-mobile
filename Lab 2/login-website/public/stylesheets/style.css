@@ -1,0 +1,240 @@
+:root {
+	--blue: #2b7de2;
+	--brightBlue: #00B7FF;
+	--lightBlue: #def;
+	--grey: #6c757d;
+	--darkGrey: #595959;
+	--lightGrey: #ddd;
+	--green: #44bc42;
+	--orange: #FF7F00;
+	--red: #f43d3d;
+	--lightRed: #f7a199;
+	--darkRed: #9b2b22;
+}
+
+body {
+	padding: 50px;
+	font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+	min-width: 600px;
+}
+
+h2, h4 {
+    margin-bottom: 20px;
+}
+
+h4 {
+    margin-bottom: 10px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 600px;
+}
+
+table, td, th {
+  border: 1px solid var(--grey);
+}
+
+th.text-center {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 22px;
+}
+
+td.text-center.hover:hover {
+	background-color: var(--blue) !important;
+	cursor: pointer;
+	color: white;
+	text-decoration: underline;
+	font-size: 19px;
+}
+
+td.text-center {
+	padding-top: 10px;
+	padding-bottom:10px;
+	text-align: center;
+	height: 50px;
+}
+
+tr:nth-child(odd) {
+	background-color: var(--lightBlue);
+}
+
+a {
+	color: var(--brightBlue);
+}
+
+div.action {
+	margin: 20px auto 50px auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	max-width: 800px;
+}
+
+button:hover {
+	cursor: pointer;
+	box-shadow: 2px 4px 15px 2px rgba(0, 0, 0, 0.2), 4px 8px 40px 5px rgba(0, 0, 0, 0.19);
+}
+
+button.action {
+	margin: 10px;
+	padding: 110px 20px 5px 20px;
+	border: 2px solid var(--blue);
+	border-radius: 4px;
+	color: var(--blue);
+  	background-position: center;
+  	background-size: 50px;
+  	background-repeat: no-repeat;
+  	text-align: bottom;
+  	width: 150px;
+}
+
+button.action.delete {
+	border: 2px solid var(--red);
+	background-image: url(http://localhost:3000/images/delete.png);
+	color: var(--red);
+}
+
+button.action.delete:hover {
+	background-color: var(--red);
+	color: white;
+}
+
+button.action.edit {
+	border: 2px solid var(--green);
+	background-image: url(http://localhost:3000/images/edit.png);
+	color: var(--green);
+}
+
+button.action.edit:hover {
+	background-color: var(--green);
+	color: white;
+}
+
+button.action.copy {
+	border: 2px solid var(--green);
+	background-image: url(http://localhost:3000/images/clone.png);
+	color: var(--green);
+}
+
+button.action.copy:hover {
+	background-color: var(--green);
+	color: white;
+}
+
+button.action.study {
+	border: 2px solid var(--orange);
+	background-image: url(http://localhost:3000/images/play.png);
+	color: var(--orange);
+}
+
+button.action.study:hover {
+	background-color: var(--orange);
+	color: white;
+}
+
+button.action.back {
+	background-image: url(http://localhost:3000/images/back.png);
+}
+
+button.action.back:hover {
+	background-color: var(--blue);
+	color: white;
+}
+
+button.btn {
+	border-radius: 4px;
+	margin: 20px 20px 10px 0px;
+	border: 2px solid var(--blue);
+	color: var(--blue);
+}
+
+button.btn:hover {
+	background-color: var(--blue);
+	color: white;
+}
+
+button.btn.submit {
+	border: 2px solid var(--green);
+	color: var(--green);
+}
+
+button.btn.submit:hover {
+	background-color: var(--green);
+	color: var(--white);
+}
+
+button.btn.delete {
+	border: 2px solid var(--red);
+	color: var(--red);
+}
+
+button.btn.delete:hover {
+	background-color: var(--red);
+	color: var(--white);
+}
+
+button.btn.return {
+	margin-top: 0px;
+}
+
+button.icon {
+	padding: 5px;
+	border-radius: 4px;
+  	background-position: center;
+  	background-size: 20px;
+  	background-repeat: no-repeat;
+  	width: 75px;
+  	height: 30px;
+}
+
+button.icon.edit {
+	border: 1.3px solid var(--blue);
+	background-image: url(http://localhost:3000/images/edit.png);
+}
+
+button.icon.edit:hover {
+	background-color: var(--blue);
+}
+
+button.icon.delete {
+	border: 1.3px solid var(--red);
+	background-image: url(http://localhost:3000/images/delete.png);
+}
+
+button.icon.delete:hover {
+	background-color: var(--red);
+}
+
+div.error {
+	margin: 20px 0px;
+	padding: 20px;
+	border: 1px solid var(--darkRed);
+	border-radius: 5px;
+	background-color: var(--lightRed);
+	color: var(--darkRed);
+}
+
+div.message {
+	padding: 30px;
+	border: 1px solid var(--darkGrey);
+	border-radius: 5px;
+	background-color: var(--lightGrey);
+	color: var(--darkGrey);
+	text-align: center;
+}
+
+label.form-check-label {
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+
+input.form-check-input {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+

@@ -19,12 +19,14 @@ import java.util.List;
 
 /**
  * Created by karthik on 11/3/17.
+ * Modifyied by tanyaanisimova on 5/11/19
+ * Resource: https://gist.github.com/kaichengyan/738d1c2b2ce2af2f99509bffdccd99e1
  */
 
 public class QueryUtils {
 
     /** Tag for the log messages */
-    private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    private static final String TAG = QueryUtils.class.getSimpleName();
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -39,26 +41,22 @@ public class QueryUtils {
      */
     public static List<Earthquake> fetchEarthquakeData2(String requestUrl) {
 
-        URL url = createUrl(requestUrl);
+        URL url = null;
+        try {
+            url = new URL(requestUrl);
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "Error creating url: " + e);
+        }
+
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error closing input stream: " + e);
+            Log.e(TAG, "Error closing input stream: " + e);
         }
 
         ArrayList<Earthquake> list = extractEarthquakes(jsonResponse);
         return list;
-    }
-
-    private static URL createUrl(String strUrl) {
-        URL url = null;
-        try {
-            url = new URL(strUrl);
-        } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Error creating url: " + e);
-        }
-        return url;
     }
 
     private static String makeHttpRequest(URL url) throws IOException {
@@ -78,13 +76,23 @@ public class QueryUtils {
 
             if (httpURLConnection.getResponseCode() == 200) {
                 inputStream = httpURLConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);
+                StringBuilder output = new StringBuilder();
+                if (inputStream != null) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+                    BufferedReader reader = new BufferedReader(inputStreamReader);
+                    String line = reader.readLine();
+                    while (line != null) {
+                        output.append(line);
+                        line = reader.readLine();
+                    }
+                }
+                jsonResponse = output.toString();
             } else {
-                Log.e(LOG_TAG, httpURLConnection.getResponseMessage());
+                Log.e(TAG, httpURLConnection.getResponseMessage());
             }
 
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(TAG, "Problem retrieving the earthquake JSON results.", e);
         } finally {
             if (httpURLConnection != null) {
                 httpURLConnection.disconnect();
@@ -94,20 +102,6 @@ public class QueryUtils {
             }
         }
         return jsonResponse;
-    }
-
-    private static String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-        return output.toString();
     }
 
     public static ArrayList<Earthquake> extractEarthquakes(String jsonResponse) {
@@ -138,7 +132,7 @@ public class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e(TAG, "Problem parsing the earthquake JSON results", e);
         }
 
         // Return the list of earthquakes

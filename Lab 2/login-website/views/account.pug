@@ -1,0 +1,55 @@
+extends layout
+
+block variables
+  - var title = 'Accounts'
+  - var accounts = data['accounts']
+
+block content
+
+  h2.text-center Manage Accounts
+
+  if accounts.length == 0 
+    div.message There are no user accounts registered.
+  else 
+    table
+      tr
+        th(class='text-center') Name
+        th(class='text-center') Email
+        th(class='text-center') Status
+        th(class='text-center') Type
+        th(class='text-center') Edit
+        th(class='text-center') Delete
+        
+      each row in accounts
+        - var name = row.LastName + ", " + row.FirstName
+        tr
+          td.text-center #{name} 
+          td.text-center #{row.Email}
+
+          if row.AccountStatus == 'enabled'
+            td.text-center Enabled 
+          else 
+            td.text-center Disabled
+
+          if row.AccountType == 'admin'
+            td.text-center Administrator 
+          else 
+            td.text-center User
+
+          td.text-center
+            button.icon.edit(onclick='edit('+row.AccountID+')')
+
+          td.text-center
+            button.icon.delete(onclick='confirmDelete("'+row.Email+'", '+row.AccountID+')')
+
+  script.
+    function edit(userID) {
+      window.location.href = '/editAccount/?userID=' + userID
+    }
+
+    function confirmDelete(email, userID) {
+      var result = confirm('Are you sure you want to delete '+email+'?')
+      if (result == true) {
+        window.location.href = '/deleteAccount/?userID=' + userID
+      }
+    }

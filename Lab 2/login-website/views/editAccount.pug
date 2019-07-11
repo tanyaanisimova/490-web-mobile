@@ -1,0 +1,68 @@
+extends layout
+
+block variables
+  - var userID = data['userID']
+  - var name = data['name']
+  - var email = data['email']
+  - var isEnabled = data['isEnabled']
+  - var isAdmin = data['isAdmin']
+  
+  - var title = "Edit Account"
+  
+block content
+  h2.text-center #{title}
+
+  form(method='POST' action='/editAccount')
+    div.form-group
+      input.form-control(type='hidden', name='userID', value=userID)
+
+      input.form-control(type='text', name='name', value=name, hidden=true)
+
+      label Name:
+      input.form-control(type='text', value=name, disabled=true)
+      <br>
+
+      input.form-control(type='text', name='email', value=email, hidden=true)
+
+      label Email:
+      input.form-control(type='text', value=email, disabled=true)
+      <br>
+
+      label Account Status:
+      <br>
+
+      input.form-check-input(type='radio', name='status', id='enabled', value='enabled', checked=isEnabled)
+      label.form-check-label(for='enabled') Enabled
+      <br>
+      
+      input.form-check-input(type='radio', name='status', id='disabled', value='disabled', checked=(!isEnabled))
+      label.form-check-label(for='disabled') Disabled
+      <br><br>
+
+      label Account Type:
+      <br>
+      
+      input.form-check-input(type='radio', name='type', id='admin', value='admin', checked=isAdmin)
+      label.form-check-label(for='admin') Administrator
+      <br>
+      
+      input.form-check-input(type='radio', name='type', id='user', value='user', checked=(!isAdmin))
+      label.form-check-label(for='user') User
+      <br>
+
+    button.btn(type='button' onclick='back()') Cancel
+    button.btn.submit(type='submit') Submit
+    button.btn.delete(type='button' onclick='deleteAccount('+userID+', "'+email+'")') Delete
+
+  script.
+    function back() {
+      window.location.href = '/account'
+    }
+
+    function deleteAccount(userID, email) {
+      var result = confirm('Are you sure you want to delete '+email+'?')
+      if (result == true) {
+        window.location.href = '/deleteAccount/?userID=' + userID
+      }
+    }
+  

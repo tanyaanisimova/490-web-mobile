@@ -1,0 +1,44 @@
+extends layout
+
+block variables
+  - var setID = data['setID']
+  - var setName = data['setName']
+  - var isEmpty = data['isEmpty']
+  - var isDuplicate = data['isDuplicate']
+  - var setName = data['setName']
+  - var newSetName = data['newSetName']
+  - var title = "Copy Set"
+
+
+block content
+  h2.text-center #{title}
+
+  form(method='POST' action='/copySet')
+    div.form-group
+      input.form-control(type='hidden', name='setID', value=setID)
+      input.form-control(type='hidden', name='setName', value=setName)
+
+      if isEmpty
+        div.error A set name is required.
+      else if isDuplicate
+        // TODO: better message
+        if (newSetName == null)
+          div.error You already have a flashcard set named #{setName}, pick another name for this set.
+        else 
+          div.error You already have a flashcard set named #{newSetName}.
+
+      label(for='setName') Original Flashcard Set Name:
+      input.form-control(type='text', name='setName', value=setName, disabled=true)
+      <br>
+
+      label(for='newSetName') New Flashcard Set Name:
+      input.form-control(type='text', placeholder='New Set Name', name='newSetName', value=newSetName, maxlength=100)
+    
+    button.btn(type='button' onclick='back("'+setID+'")') Cancel
+    button.btn.submit(type='submit') Submit
+
+  script.
+    function back(setID) {
+      window.location.href = '/set/?setID=' + setID
+    }
+  

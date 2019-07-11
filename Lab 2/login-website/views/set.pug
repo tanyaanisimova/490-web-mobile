@@ -1,0 +1,142 @@
+extends layout
+
+block variables
+  - var setID = data['setID']
+  - var contents = data['contents']
+  - var setName = contents[0].StackName
+  - var privileges = data['privileges']
+  - var isOwner = data['isOwner']
+  - var canModify = data['canModify']
+  - var canCopy = data['canCopy']
+  - var title = setName
+
+block content
+  h2.text-center #{title}
+
+  if isOwner
+    div.action   
+      button.action.back(onclick='done()') Return
+      button.action.study(onclick='studyMode('+setID+')') Study
+      button.action.edit(onclick='edit('+setID+')') Edit Name
+      button.action.delete(onclick='confirmDelete("'+setName+'", '+setID+')') Delete
+  else if canCopy
+    div.action(style='max-width: 600px')
+      button.action.back(onclick='done()') Return
+      button.action.study(onclick='studyMode('+setID+')') Study
+      button.action.copy(onclick='copy('+setID+')') Copy Set
+  else
+    div.action(style='max-width: 400px')
+      button.action.back(onclick='done()') Return
+      button.action.study(onclick='studyMode('+setID+')') Study
+
+  if isOwner
+    if privileges.length == 0
+      h4 Shared With (0)
+    else 
+      h4 Shared With  (#{privileges.length})
+
+    if privileges.length == 0
+      div.message You are not sharing this set with any other users. Click "Share" to share with others!
+    else
+        table
+          tr
+            th(class='text-center') User
+            th(class='text-center') Privileges
+            th(class='text-center') Edit
+            th(class='text-center') Delete
+          each row in privileges
+            tr
+              td.text-center #{row.email}
+              td.text-center #{row.privileges}
+              td.text-center 
+                button.icon.edit(onclick='editPrivileges('+setID+', '+row.privilegeID+')')
+              td.text-center 
+                button.icon.delete(onclick='deletePrivileges('+setID+', '+row.privilegeID+', "'+row.email+'")')
+
+    button.btn(onclick='addPrivilege("'+setID+'")') Share
+    <br><br><br>
+    
+  if contents[0].Term == null 
+    h4 Contents (0)
+  else 
+    h4 Contents (#{contents.length})
+
+  if (contents[0].Term == null)
+    if canModify
+      div.message #{setName} does not conatain any cards. Click "Add Card" to add your first card!
+    else 
+      div.message #{setName} does not conatain any cards.
+  else
+    table
+      tr
+        th.text-center Terms
+        th.text-center Definitions
+        if canModify
+          th(class='text-center') Edit
+          th(class='text-center') Delete
+      each row in contents
+        tr
+          td.text-center(onclick='view()') #{row.Term}
+          td.text-center(onclick='view()') #{row.Definition}
+          if canModify
+            td.text-center 
+              button.icon.edit(onclick='editCard('+row.CardID+', '+setID+')')
+            td.text-center 
+              button.icon.delete(onclick='deleteCard('+row.CardID+', '+setID+', "'+row.Term+'", "'+setName+'")')
+
+  if canModify
+    button.btn(onclick='addCard("'+setID+'")') Add Card
+
+  script.
+    function done() {
+      window.location.href = '/'
+    }
+
+    function addPrivilege(setID) {
+      window.location.href = '/submitPrivilege/?setID=' + setID
+    }
+
+    function editPrivileges(setID, privilegeID) {
+      window.location.href = '/submitPrivilege/?setID=' + setID + '&privilegeID=' + privilegeID
+    } 
+
+    function deletePrivileges(setID, privilegeID, email) {
+      var result = confirm('Are you sure you want to delete all privileges for '+email+'?')
+      if (result == true) {
+        window.location.href = '/deletePrivilege/?privilegeID=' + privilegeID + '&setID=' + setID
+      }
+    }
+
+    function addCard(setID) {
+      window.location.href = '/submitCard/?setID=' + setID
+    }
+
+    function editCard(cardID, setID) {
+      window.location.href = '/submitCard/?setID=' + setID + '&cardID=' + cardID
+    } 
+
+    function deleteCard(cardID, setID, term, setName) {
+      var result = confirm('Are you sure you want to delete '+term+' from '+setName+'?')
+      if (result == true) {
+        window.location.href = '/deleteCard/?setID=' + setID + '&cardID=' + cardID
+      }
+    }
+
+    function confirmDelete(name, setID) {
+      var result = confirm('Are you sure you want to delete '+name+'?')
+      if (result == true) {
+        window.location.href = '/deleteSet/?setID=' + setID
+      }
+    }
+
+    function edit(setID) {
+      window.location.href = '/submitSet/?setID=' + setID
+    }
+
+    function copy(setID) {
+      window.location.href = '/copySet/?setID=' + setID
+    }
+
+    function studyMode(setID) {
+      window.location.href = '/study/?setID=' + setID
+    }
