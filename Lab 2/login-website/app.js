@@ -3,28 +3,30 @@ var express = require('express')
 var path = require('path')
 var logger = require('morgan')
 var session = require('express-session')
-var mysql = require('mysql')
+//var mysql = require('mysql')
 
-const homeRouter = require('./routes/home')
-const accountRouter = require('./routes/account')
-const publicRouter = require('./routes/public')
-const usersRouter = require('./routes/users')
-const setRouter = require('./routes/set')
+const indexRouter = require('./routes/index')
+const loginRouter = require('./routes/login')
+// const homeRouter = require('./routes/home')
+// const accountRouter = require('./routes/account')
+// const publicRouter = require('./routes/public')
+// const usersRouter = require('./routes/users')
+// const setRouter = require('./routes/set')
 
 var app = express()
 
 var sensitive = require('./sensitive.json')
 
-var connection = mysql.createConnection({
-  host: sensitive.host,
-  user: sensitive.user,
-  password: sensitive.password,
-  database: sensitive.database
-})
-
-connection.connect(function(err) {
-  if (err) throw err
-})
+// var connection = mysql.createConnection({
+//   host: sensitive.host,
+//   user: sensitive.user,
+//   password: sensitive.password,
+//   database: sensitive.database
+// })
+//
+// connection.connect(function(err) {
+//   if (err) throw err
+// })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -72,28 +74,44 @@ app.use((req, res, next) => {
   //   })
 })
 
-function loginRequired(req, res, next) {
-  if (!req.userContext) {
-    return res.status(401).render('unauthenticated')
-  }
+// function loginRequired(req, res, next) {
+//   if (!req.userContext) {
+//     return res.status(401).render('unauthenticated')
+//   }
+//
+//   if (req.user.profile.status.localeCompare('enabled') != 0) {
+//     return res.status(401).render('disabled')
+//   }
+//
+//   next()
+// }
 
-  if (req.user.profile.status.localeCompare('enabled') != 0) {
-    return res.status(401).render('disabled')
-  }
-
-  next()
-}
+var auth = function(req, res, next) {
+  if (req.session && req.session.user === "amy" && req.session.admin)
+    //query db
+    return next();
+  else
+    return res.sendStatus(401);
+};
 
 app.get('/test', (req, res) => {
   res.json({ profile: req.user ? req.user.profile : null })
 })
 
-app.use('/', loginRequired, homeRouter)
-app.use('/account', loginRequired, accountRouter)
-app.use('/users', loginRequired, usersRouter)
-app.use('/set', loginRequired, setRouter)
+app.use('/', indexRouter)
+app.use('/login', loginRouter)
+// app.use('/', auth, homeRouter)
+// app.use('/account', auth, accountRouter)
+// app.use('/users', auth, usersRouter)
+// app.use('/set', auth, setRouter)
 
-app.use(express.static(path.join(__dirname, 'assets')))
+// Logout endpoint
+app.get('/logout', function (req, res) {
+  req.session.destroy();
+  res.redirect('/');
+});
+
+// app.use(express.static(path.join(__dirname, 'assets')))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

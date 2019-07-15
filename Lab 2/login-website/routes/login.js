@@ -1,0 +1,52 @@
+const express = require('express')
+const router = express.Router()
+
+// const parser = require('body-parser')
+// parser.json()
+// parser.urlencoded({extended : false})
+
+// var mysql = require('mysql')
+// var sensitive = require('../sensitive.json')
+
+router.get('/', (req, res) => {
+  // var connection = mysql.createConnection({
+  //   host: sensitive.host,
+  //   user: sensitive.user,
+  //   password: sensitive.password,
+  //   database: sensitive.database
+  // })
+
+  // connection.connect(function(err) {
+  //   if (err) throw err
+  //   const user = req.user.profile
+  //
+  //   connection.query('CALL getStacks(?)', user.accountID, function (error, result, fields) {
+  //     if (error) throw error
+  //     var setRS = result[0]
+  //
+  //     connection.query('CALL getSharedStacks(?)', user.accountID, function (error, result, fields) {
+  //       if (error) throw error
+  //       var sharedSetRS = result[0]
+  //
+  //       res.render('home', { data :
+  //         { firstName : user.firstName,
+  //           sets : setRS,
+  //           sharedSets : sharedSetRS }})
+  //
+  //       connection.end()
+  //     })
+  //   })
+  // })
+
+  if (!req.query.username || !req.query.password) {
+    // res.send('login failed')
+    res.redirect('/login')
+  } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
+    req.session.user = "amy"
+    req.session.admin = true
+    // res.send("login success!")
+    res.redirect('/')
+  }
+})
+
+module.exports = router

@@ -30,6 +30,10 @@ ICP 1: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M2%20ICP1
 
 ICP 2: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M2%20ICP2
 
+ICP 3: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M2%20ICP3
+
+ICP 4: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M2%20ICP4
+
 ## Labs
 
 Module 1 Lab: https://github.com/tanyaanisimova/490-web-mobile/tree/master/Lab%201
