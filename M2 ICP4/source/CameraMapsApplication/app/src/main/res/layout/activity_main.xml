@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/main_btn_photo"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:onClick="onPhotoClick"
         android:text="Take photo"
@@ -16,17 +16,41 @@
         tools:layout_editor_absoluteY="111dp"
         android:layout_marginTop="160dp"
         android:layout_alignParentTop="true"
+        android:padding="20dp"
         android:layout_alignStart="@+id/main_btn_record"
         android:layout_alignEnd="@+id/main_btn_record" />
 
     <Button
         android:id="@+id/main_btn_record"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:onClick="onLocationClick"
         android:text="Display Location"
         android:layout_marginTop="54dp"
         android:layout_below="@+id/main_btn_photo"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/main_btn_sensor"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:onClick="onSensorClick"
+        android:text="Display Sensors"
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/main_btn_record"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/main_btn_destination"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:onClick="onDestinationClick"
+        android:text="Display Destination"
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/main_btn_sensor"
+        android:padding="20dp"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
