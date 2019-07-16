@@ -1,22 +1,29 @@
 package com.example.rohithkumar.cameramapsapplication;
 
-import android.support.v7.app.AppCompatActivity;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private boolean color = false;
     private View view;
     private long lastUpdate;
+
+    TextView accX;
+    TextView accY;
+    TextView accZ;
+
+//    TextView gyX;
+//    TextView gyY;
+//    TextView gyZ;
 
     /** Called when the activity is first created. */
     @Override
@@ -27,8 +34,15 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
-        view = findViewById(R.id.textView);
-        view.setBackgroundColor(Color.GREEN);
+//        view.setBackgroundColor(Color.GREEN);
+
+        accX = (TextView) findViewById(R.id.acc_x);
+        accY = (TextView) findViewById(R.id.acc_y);
+        accZ = (TextView) findViewById(R.id.acc_z);
+
+//        gyX = (TextView) findViewById(R.id.gy_x);
+//        gyY = (TextView) findViewById(R.id.gy_y);
+//        gyZ = (TextView) findViewById(R.id.gy_z);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 //        lastUpdate = System.currentTimeMillis();
@@ -36,40 +50,22 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            getAccelerometer(event);
-        }
-
-    }
-
-    private void getAccelerometer(SensorEvent event) {
         float[] values = event.values;
         // Movement
         float x = values[0];
         float y = values[1];
         float z = values[2];
 
-        float accelationSquareRoot = (x * x + y * y + z * z)
-                / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
-//        long actualTime = event.timestamp;
-        if (accelationSquareRoot >= 1.5) //
-        {
-//            if (actualTime - lastUpdate < 200) {
-//                return;
-//            }
-//            lastUpdate = actualTime;
-            Toast.makeText(this, "Device was shuffed", Toast.LENGTH_SHORT)
-                    .show();
-//            if (color) {
-//                view.setBackgroundColor(Color.GREEN);
-//            } else {
-//                view.setBackgroundColor(Color.RED);
-//            }
-//            color = !color;
-            view.setBackgroundColor(Color.RED);
-        } else {
-            view.setBackgroundColor(Color.GREEN);
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            accX.setText("X: " + x);
+            accY.setText("Y: " + y);
+            accZ.setText("Z: " + z);
         }
+//        else {
+//            gyX.setText("X: " + x);
+//            gyY.setText("Y: " + y);
+//            gyZ.setText("Z: " + z);
+//        }
     }
 
     @Override
@@ -82,6 +78,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         super.onResume();
         // register this class as a listener for the orientation and
         // accelerometer sensors
+//        ArrayList<Sensor> sensors = new ArrayList<Sensor>(sensorManager.getSensorList(Sensor.TYPE_ALL));
+
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
