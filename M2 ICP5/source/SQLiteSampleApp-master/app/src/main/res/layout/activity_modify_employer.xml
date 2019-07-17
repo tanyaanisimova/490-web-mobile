@@ -14,7 +14,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-            tools:context="com.sample.foo.sqlitesampleapp.EmployerActivity">
+            tools:context="com.sample.foo.sqlitesampleapp.ModifyEmployerActivity">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/nameInputLayout"
@@ -25,8 +25,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/nameEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"/>
+                    android:layout_height="wrap_content" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -39,8 +38,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/descEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TEST DESC"/>
+                    android:layout_height="wrap_content"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -54,33 +52,26 @@
                     android:id="@+id/foundedEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:text="08/05/1998"/>
+                    android:inputType="date"/>
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/saveButton"
+                android:id="@+id/updateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/foundedInputLayout"
                 android:layout_marginBottom="30dp"
-                android:text="Save" />
+                android:text="Update" />
 
             <Button
-                android:id="@+id/searchButton"
+                android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/foundedInputLayout"
                 android:layout_marginBottom="30dp"
-                android:text="Search" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/saveButton" />
+                android:text="Delete" />
 
         </RelativeLayout>
     </ScrollView>

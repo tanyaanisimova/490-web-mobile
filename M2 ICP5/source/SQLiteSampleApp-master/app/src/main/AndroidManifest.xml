@@ -15,8 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EmployerActivity" />
-        <activity android:name=".EmployeeActivity"></activity>
+
+        <activity android:name=".EmployerActivity"/>
+        <activity android:name=".ModifyEmployerActivity" />
+
+        <activity android:name=".EmployeeActivity"/>
     </application>
 
 </manifest>

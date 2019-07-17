@@ -43,6 +43,12 @@ public class EmployerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initList();
+    }
+
     private void saveToDB() {
         SQLiteDatabase database = new SampleDBSQLiteHelper(this).getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -58,12 +64,24 @@ public class EmployerActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             Log.e(TAG, "Error", e);
-            Toast.makeText(this, "Date is in the wrong format", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Date is in the wrong format", Toast.LENGTH_SHORT).show();
             return;
         }
         long newRowId = database.insert(SampleDBContract.Employer.TABLE_NAME, null, values);
 
-        Toast.makeText(this, "The new Row Id is " + newRowId, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "The new Row Id is " + newRowId, Toast.LENGTH_SHORT).show();
+
+        initList();
+    }
+
+    private void initList() {
+        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
+
+        String query = "SELECT * from " + SampleDBContract.Employer.TABLE_NAME;
+
+        Cursor cursor = database.rawQuery(query , null);
+
+        binding.recycleView.setAdapter(new SampleRecyclerViewCursorAdapter(this, cursor));
     }
 
     private void readFromDB() {
@@ -81,49 +99,22 @@ public class EmployerActivity extends AppCompatActivity {
 
         SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
 
-        String[] projection = {
-                SampleDBContract.Employer._ID,
-                SampleDBContract.Employer.COLUMN_NAME,
-                SampleDBContract.Employer.COLUMN_DESCRIPTION,
-                SampleDBContract.Employer.COLUMN_FOUNDED_DATE
-        };
-
         String selection =
                 SampleDBContract.Employer.COLUMN_NAME + " like ? and " +
-                        SampleDBContract.Employer.COLUMN_FOUNDED_DATE + " > ? and " +
-                        SampleDBContract.Employer.COLUMN_DESCRIPTION + " like ?";
+                        SampleDBContract.Employer.COLUMN_FOUNDED_DATE + " >= ? and " +
+                        SampleDBContract.Employer.COLUMN_DESCRIPTION + " like ? ";
 
         String[] selectionArgs = {"%" + name + "%", date + "", "%" + desc + "%"};
 
-
-        String query = "SELECT * from " + SampleDBContract.Employer.TABLE_NAME;
-
-//                + SampleDBContract.Employer.COLUMN_FOUNDED_DATE + " = ?";
-        Cursor cursor = database.rawQuery(query , null);
-
-//        String query = "SELECT " + SampleDBContract.Employer._ID + " from " + SampleDBContract.Employer.TABLE_NAME
-//                + " WHERE " + SampleDBContract.Employer.COLUMN_NAME + " = ? AND "
-//                + SampleDBContract.Employer.COLUMN_DESCRIPTION + " = ?";
-////                + SampleDBContract.Employer.COLUMN_FOUNDED_DATE + " = ?";
-//        Cursor cursor = database.rawQuery(query , new String[] {name, desc});
-//        Cursor cursor = database.query(
-//                SampleDBContract.Employer.TABLE_NAME,     // The table to query
-//                projection,                               // The columns to return
-//                selection,                                // The columns for the WHERE clause
-//                selectionArgs,                            // The values for the WHERE clause
-//                null,                                     // don't group the rows
-//                null,                                     // don't filter by row groups
-//                null                                      // don't sort
-//        );
-
-//        try {
-//            while (cursor.moveToNext()) {
-//                String idk = cursor.getString(1);
-//                String idk2 = cursor.getString(2);
-//            }
-//        } finally {
-//            cursor.close();
-//        }
+        Cursor cursor = database.query(
+                SampleDBContract.Employer.TABLE_NAME,     // The table to query
+                null,                               // The columns to return
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // don't sort
+        );
 
         binding.recycleView.setAdapter(new SampleRecyclerViewCursorAdapter(this, cursor));
     }
