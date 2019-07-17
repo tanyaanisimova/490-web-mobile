@@ -14,7 +14,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-            tools:context="com.sample.foo.sqlitesampleapp.ModifyEmployerActivity">
+            tools:context="com.sample.foo.sqlitesampleapp.EmployerModifyActivity">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/nameInputLayout"

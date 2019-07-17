@@ -15,6 +15,19 @@ public final class SampleDBContract {
             "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID + " WHERE " +
             "ee." + Employee.COLUMN_FIRSTNAME + " like ? AND ee." + Employee.COLUMN_LASTNAME + " like ?";
 
+    public static final String SELECT_EMPLOYEE_ALL = "SELECT * " +
+            "FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " +
+            "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID;
+
+    public static final String SELECT_EMPLOYEE_BY_ID = "SELECT * " +
+            "FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " +
+            "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID + " WHERE " +
+            "ee." + Employee.EMPLOYEE_ID + " = ?";
+
+
+    //"SELECT * FROM EMPEE ee INNER JOIN Employer er ON ee.EMPLOYER_ID  = er.Employer._ID
+    // WHERE ee.COLUMN_FIRSTNAME  like ? AND ee.COLUMN_LASTNAME like ?"
+
     private SampleDBContract() {
     }
 
@@ -34,6 +47,7 @@ public final class SampleDBContract {
 
     public static class Employee implements BaseColumns {
         public static final String TABLE_NAME = "employee";
+        public static final String EMPLOYEE_ID = "employee_id";
         public static final String COLUMN_FIRSTNAME = "firstname";
         public static final String COLUMN_LASTNAME = "lastname";
         public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";
@@ -43,7 +57,7 @@ public final class SampleDBContract {
 
         public static final String CREATE_TABLE = "CREATE TABLE " +
                 TABLE_NAME + " (" +
-                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                EMPLOYEE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_FIRSTNAME + " TEXT, " +
                 COLUMN_LASTNAME + " TEXT, " +
                 COLUMN_DATE_OF_BIRTH + " INTEGER, " +
@@ -52,6 +66,5 @@ public final class SampleDBContract {
                 COLUMN_EMPLOYED_DATE + " INTEGER, " +
                 "FOREIGN KEY(" + COLUMN_EMPLOYER_ID + ") REFERENCES " +
                 Employer.TABLE_NAME + "(" + Employer._ID + ") " + ")";
-
     }
 }

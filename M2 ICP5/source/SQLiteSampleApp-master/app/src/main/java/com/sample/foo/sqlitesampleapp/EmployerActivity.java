@@ -77,9 +77,15 @@ public class EmployerActivity extends AppCompatActivity {
     private void initList() {
         SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
 
-        String query = "SELECT * from " + SampleDBContract.Employer.TABLE_NAME;
-
-        Cursor cursor = database.rawQuery(query , null);
+        Cursor cursor = database.query(
+                SampleDBContract.Employer.TABLE_NAME,     // The table to query
+                null,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // don't sort
+        );
 
         binding.recycleView.setAdapter(new SampleRecyclerViewCursorAdapter(this, cursor));
     }

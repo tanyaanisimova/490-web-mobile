@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.sample.foo.sqlitesampleapp.databinding.EmployerListItemBinding;
 
@@ -49,13 +47,12 @@ public class SampleRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sample
                         mCursor.moveToPosition(pos);
 
                         String id = mCursor.getString(mCursor.getColumnIndex(SampleDBContract.Employer._ID));
-                        Intent intent = new Intent(mContext, ModifyEmployerActivity.class);
+                        Intent intent = new Intent(mContext, EmployerModifyActivity.class);
                         intent.putExtra("id", id);
                         mContext.startActivity(intent);
                     }
                 }
             });
-
         }
 
         public void bindCursor(Cursor cursor) {

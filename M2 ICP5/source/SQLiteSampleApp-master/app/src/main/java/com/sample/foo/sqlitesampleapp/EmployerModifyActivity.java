@@ -6,30 +6,27 @@ import android.database.sqlite.SQLiteDatabase;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sample.foo.sqlitesampleapp.databinding.ActivityEmployerBinding;
-import com.sample.foo.sqlitesampleapp.databinding.ActivityModifyEmployerBinding;
+import com.sample.foo.sqlitesampleapp.databinding.ActivityEmployerModifyBinding;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ModifyEmployerActivity extends AppCompatActivity {
+public class EmployerModifyActivity extends AppCompatActivity {
 
-    private static final String TAG = "ModifyEmployerActivity";
-    private ActivityModifyEmployerBinding binding;
+    private static final String TAG = "EmployerModifyActivity";
+    private ActivityEmployerModifyBinding binding;
 
     private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_modify_employer);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_employer_modify);
 
         SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
 

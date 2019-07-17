@@ -4,38 +4,39 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sample.foo.sqlitesampleapp.databinding.ActivityEmployeeBinding;
+import com.sample.foo.sqlitesampleapp.databinding.ActivityEmployeeModBinding;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
-public class EmployeeActivity extends AppCompatActivity {
+public class EmployeeModifyActivity extends AppCompatActivity {
 
-    private ActivityEmployeeBinding binding;
-    private static final String TAG = "EmployeeActivity";
+    private static final String TAG = "EmployeeModifyActivity";
+    private ActivityEmployeeModBinding binding;
+
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_employee);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_employee_mod);
 
-        binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
+        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
 
         String[] queryCols = new String[]{"_id", SampleDBContract.Employer.COLUMN_NAME};
         String[] adapterCols = new String[]{SampleDBContract.Employer.COLUMN_NAME};
         int[] adapterRowViews = new int[]{android.R.id.text1};
 
-        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
-
-        Cursor cursor = database.query(
+        Cursor employerCursor = database.query(
                 SampleDBContract.Employer.TABLE_NAME,     // The table to query
                 queryCols,                                // The columns to return
                 null,                                     // The columns for the WHERE clause
@@ -46,41 +47,67 @@ public class EmployeeActivity extends AppCompatActivity {
         );
 
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(
-                this, android.R.layout.simple_spinner_item, cursor, adapterCols, adapterRowViews, 0);
+                this, android.R.layout.simple_spinner_item, employerCursor, adapterCols, adapterRowViews, 0);
         cursorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.employerSpinner.setAdapter(cursorAdapter);
 
-        binding.saveButton.setOnClickListener(new View.OnClickListener() {
+        id = getIntent().getStringExtra("id");
+
+        Cursor cursor = database.rawQuery(SampleDBContract.SELECT_EMPLOYEE_BY_ID, new String[] {id});
+
+        cursor.moveToFirst();
+
+        binding.firstnameEditText.setText(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employee.COLUMN_FIRSTNAME)));
+        binding.lastnameEditText.setText(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employee.COLUMN_LASTNAME)));
+
+        binding.jobDescEditText.setText(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employee.COLUMN_JOB_DESCRIPTION)));
+
+        Date date = new Date(Long.valueOf(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employee.COLUMN_DATE_OF_BIRTH))));
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateFormatted = formatter.format(date);
+        binding.dobEditText.setText(dateFormatted);
+
+        date = new Date(Long.valueOf(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employee.COLUMN_EMPLOYED_DATE))));
+        dateFormatted = formatter.format(date);
+        binding.employedEditText.setText(dateFormatted);
+
+        int employerID = Integer.valueOf(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employee.COLUMN_EMPLOYER_ID)));
+
+        for (int i = 0; i < binding.employerSpinner.getCount(); i++ ) {
+            if (((Cursor)binding.employerSpinner.getItemAtPosition(i)).getInt(0) == employerID) {
+                binding.employerSpinner.setSelection(i);
+            }
+        }
+        cursor.close();
+
+        binding.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToDB();
+                delete();
             }
         });
 
-        binding.searchButton.setOnClickListener(new View.OnClickListener() {
+        binding.updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readFromDB();
+                update();
             }
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initList();
-    }
-
-    private void initList() {
-        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
-
-        Cursor cursor = database.rawQuery(SampleDBContract.SELECT_EMPLOYEE_ALL, null);
-
-        binding.recycleView.setAdapter(new SampleJoinRecyclerViewCursorAdapter(this, cursor));
-    }
-
-    private void saveToDB() {
+    private void delete() {
         SQLiteDatabase database = new SampleDBSQLiteHelper(this).getWritableDatabase();
+
+        database.delete(SampleDBContract.Employee.TABLE_NAME,
+                SampleDBContract.Employee.EMPLOYEE_ID + " = ?", new String[] {id});
+
+        Toast.makeText(this, "Deleted item " + id, Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void update() {
+        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(SampleDBContract.Employee.COLUMN_FIRSTNAME, binding.firstnameEditText.getText().toString());
         values.put(SampleDBContract.Employee.COLUMN_LASTNAME, binding.lastnameEditText.getText().toString());
@@ -108,21 +135,11 @@ public class EmployeeActivity extends AppCompatActivity {
             Toast.makeText(this, "Date is in the wrong format", Toast.LENGTH_LONG).show();
             return;
         }
-        long newRowId = database.insert(SampleDBContract.Employee.TABLE_NAME, null, values);
 
-        Toast.makeText(this, "The new Row Id is " + newRowId, Toast.LENGTH_LONG).show();
-        initList();
-    }
+        Integer result = database.update(SampleDBContract.Employee.TABLE_NAME, values,
+                SampleDBContract.Employee.EMPLOYEE_ID + " = ?", new String[] {id});
 
-    private void readFromDB() {
-        String firstname = binding.firstnameEditText.getText().toString();
-        String lastname = binding.lastnameEditText.getText().toString();
-
-        SQLiteDatabase database = new SampleDBSQLiteHelper(this).getReadableDatabase();
-
-        String[] selectionArgs = {"%" + firstname + "%", "%" + lastname + "%"};
-
-        Cursor cursor = database.rawQuery(SampleDBContract.SELECT_EMPLOYEE_WITH_EMPLOYER, selectionArgs);
-        binding.recycleView.setAdapter(new SampleJoinRecyclerViewCursorAdapter(this, cursor));
+        Toast.makeText(this, "Updated item " + id, Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

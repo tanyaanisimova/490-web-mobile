@@ -1,6 +1,7 @@
 package com.sample.foo.sqlitesampleapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -28,12 +29,30 @@ public class SampleJoinRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sa
         mCursor = cursor;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         EmployeeListItemBinding itemBinding;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemBinding = DataBindingUtil.bind(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // get position
+                    int pos = getAdapterPosition();
+
+                    // check if item still exists
+                    if(pos != RecyclerView.NO_POSITION){
+                        mCursor.moveToPosition(pos);
+
+                        String id = mCursor.getString(mCursor.getColumnIndex(SampleDBContract.Employee.EMPLOYEE_ID));
+                        Intent intent = new Intent(mContext, EmployeeModifyActivity.class);
+                        intent.putExtra("id", id);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
         }
 
         public void bindCursor(Cursor cursor) {

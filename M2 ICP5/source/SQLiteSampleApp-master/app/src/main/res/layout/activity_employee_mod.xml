@@ -14,7 +14,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-            tools:context="com.sample.foo.sqlitesampleapp.EmployeeActivity">
+            tools:context="com.sample.foo.sqlitesampleapp.EmployeeModifyActivity">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/firstnameInputLayout"
@@ -25,8 +25,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/firstnameEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tanya"/>
+                    android:layout_height="wrap_content"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -39,8 +38,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/lastnameEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Anisimova"/>
+                    android:layout_height="wrap_content"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -54,8 +52,7 @@
                     android:id="@+id/dobEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:text="23/04/1997"/>
+                    android:inputType="date"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -68,8 +65,7 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/jobDescEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Software developer"/>
+                    android:layout_height="wrap_content"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -83,8 +79,7 @@
                     android:id="@+id/employedEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:text="23/04/2016"/>
+                    android:inputType="date"/>
             </android.support.design.widget.TextInputLayout>
 
             <TextView
@@ -104,28 +99,22 @@
                 android:layout_below="@id/employerTextView" />
 
             <Button
-                android:id="@+id/saveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/employerSpinner"
-                android:layout_marginBottom="30dp"
-                android:text="Save" />
-
-            <Button
-                android:id="@+id/searchButton"
+                android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/employerSpinner"
                 android:layout_marginBottom="30dp"
-                android:text="Search" />
+                android:text="Delete" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/searchButton" />
+            <Button
+                android:id="@+id/updateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/employerSpinner"
+                android:layout_marginBottom="30dp"
+                android:text="Update" />
 
         </RelativeLayout>
     </ScrollView>
