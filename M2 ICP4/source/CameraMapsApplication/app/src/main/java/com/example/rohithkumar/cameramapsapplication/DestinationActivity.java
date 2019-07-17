@@ -72,7 +72,7 @@ public class DestinationActivity extends FragmentActivity {
                 options.position(currentLoc);
 
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLoc,
-                        17));
+                        14));
                 addMarkers();
             }
         });
