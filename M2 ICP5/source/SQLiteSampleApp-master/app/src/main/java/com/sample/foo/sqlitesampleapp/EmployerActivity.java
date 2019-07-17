@@ -95,15 +95,35 @@ public class EmployerActivity extends AppCompatActivity {
 
         String[] selectionArgs = {"%" + name + "%", date + "", "%" + desc + "%"};
 
-        Cursor cursor = database.query(
-                SampleDBContract.Employer.TABLE_NAME,     // The table to query
-                projection,                               // The columns to return
-                selection,                                // The columns for the WHERE clause
-                selectionArgs,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                      // don't sort
-        );
+
+        String query = "SELECT * from " + SampleDBContract.Employer.TABLE_NAME;
+
+//                + SampleDBContract.Employer.COLUMN_FOUNDED_DATE + " = ?";
+        Cursor cursor = database.rawQuery(query , null);
+
+//        String query = "SELECT " + SampleDBContract.Employer._ID + " from " + SampleDBContract.Employer.TABLE_NAME
+//                + " WHERE " + SampleDBContract.Employer.COLUMN_NAME + " = ? AND "
+//                + SampleDBContract.Employer.COLUMN_DESCRIPTION + " = ?";
+////                + SampleDBContract.Employer.COLUMN_FOUNDED_DATE + " = ?";
+//        Cursor cursor = database.rawQuery(query , new String[] {name, desc});
+//        Cursor cursor = database.query(
+//                SampleDBContract.Employer.TABLE_NAME,     // The table to query
+//                projection,                               // The columns to return
+//                selection,                                // The columns for the WHERE clause
+//                selectionArgs,                            // The values for the WHERE clause
+//                null,                                     // don't group the rows
+//                null,                                     // don't filter by row groups
+//                null                                      // don't sort
+//        );
+
+//        try {
+//            while (cursor.moveToNext()) {
+//                String idk = cursor.getString(1);
+//                String idk2 = cursor.getString(2);
+//            }
+//        } finally {
+//            cursor.close();
+//        }
 
         binding.recycleView.setAdapter(new SampleRecyclerViewCursorAdapter(this, cursor));
     }
