@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView txtDetails;
     private EditText inputName, inputPhone;
     private Button btnSave;
+    private Button btnLogout;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
 
@@ -42,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         inputName = (EditText) findViewById(R.id.name);
         inputPhone = (EditText) findViewById(R.id.phone);
         btnSave = (Button) findViewById(R.id.btn_save);
+        btnLogout = (Button) findViewById(R.id.btn_logout);
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -83,6 +85,13 @@ public class HomeActivity extends AppCompatActivity {
                 } else {
                     updateUser(name, phone);
                 }
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

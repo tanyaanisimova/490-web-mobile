@@ -12,6 +12,18 @@
     android:background="@drawable/bg"
     tools:context="edu.umkc.rashmi.HomeActivity">
 
+    <Button
+        android:id="@+id/btn_logout"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="right"
+        android:background="@color/colorPrimary"
+        android:text="Logout"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/txt_user"
         android:layout_width="wrap_content"

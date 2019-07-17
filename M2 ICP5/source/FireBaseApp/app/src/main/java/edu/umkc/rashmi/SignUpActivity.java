@@ -1,6 +1,5 @@
 package edu.umkc.rashmi;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -29,7 +28,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
 
-
 public class SignUpActivity extends AppCompatActivity {
 
     int REQUEST_CAMERA=0;
@@ -54,7 +52,6 @@ public class SignUpActivity extends AppCompatActivity {
 
        //Get Firebase auth instance
        auth = FirebaseAuth.getInstance();
-
     }
 
 
@@ -112,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
 
-            }else if (requestCode == REQUEST_CAMERA) {
+            } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
 
             }
@@ -201,9 +198,5 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
-
-
 }
