@@ -1,7 +1,5 @@
 package edu.umkc.rashmi;
 
-import com.google.firebase.database.IgnoreExtraProperties;
-
 /**
  * Created by Rashmi on 4/16/2018.
  */

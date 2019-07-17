@@ -5,28 +5,27 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
-
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.AuthResult;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
     int SELECT_FILE=1;
     ImageView userImage ;
     EditText txtAddress;
-    String userChoosenTask;
+    String userChosenTask;
     Bitmap userPhoto=null;
 
     private FirebaseAuth auth;
@@ -70,11 +69,11 @@ public class SignUpActivity extends AppCompatActivity {
                 //boolean result=Utility.checkPermission(SignUpActivity.this);
                 boolean result=true;
                 if (items[item].equals("Take Photo")) {
-                    userChoosenTask="Take Photo";
+                    userChosenTask ="Take Photo";
                     if(result)
                         cameraIntent();
                 } else if (items[item].equals("Choose from Library")) {
-                     userChoosenTask="Choose from Library";
+                     userChosenTask ="Choose from Library";
                     if(result)
                         galleryIntent();
                 } else if (items[item].equals("Cancel")) {
@@ -88,9 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void cameraIntent()
     {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         startActivityForResult(intent, REQUEST_CAMERA);
-
     }
 
     private void galleryIntent()
@@ -99,7 +96,6 @@ public class SignUpActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
-
     }
 
     @Override
