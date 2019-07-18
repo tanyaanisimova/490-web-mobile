@@ -1,2 +1,0 @@
-very long
-should create objects to hold information retreived from query so the cursor doesnt have to stay open for the lists to work
