@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,12 +18,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,10 +45,14 @@ public class HomeActivity extends AppCompatActivity {
     private TextView txtDetails;
     private EditText inputName, inputPhone;
     private Button btnSave;
+    private Button btnDelete;
     private Button btnLogout;
     private Button btnUpload;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+    private FirebaseStorage mStorageReference;
+    private StorageReference mImage;
+    private FirebaseAuth mAuth;
 
     int REQUEST_CAMERA = 0;
     int SELECT_FILE = 1;
@@ -61,11 +75,16 @@ public class HomeActivity extends AppCompatActivity {
         inputName = (EditText) findViewById(R.id.name);
         inputPhone = (EditText) findViewById(R.id.phone);
         btnSave = (Button) findViewById(R.id.btn_save);
+        btnDelete = (Button) findViewById(R.id.btn_delete);
         btnLogout = (Button) findViewById(R.id.btn_logout);
         btnUpload = (Button) findViewById(R.id.btn_upload);
         userImage = (ImageView) findViewById(R.id.ivUserImage);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
+        mStorageReference = FirebaseStorage.getInstance("gs://fir-db-564a3.appspot.com/");
+
+        mFirebaseInstance = FirebaseDatabase.getInstance("https://fir-db-564a3.firebaseio.com/");
 
         // get reference to 'users' node
         mFirebaseDatabase = mFirebaseInstance.getReference("users");
@@ -96,21 +115,36 @@ public class HomeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String phone = inputPhone.getText().toString();
+            String name = inputName.getText().toString();
+            String phone = inputPhone.getText().toString();
 
-                // Check for already existed userId
-                if (TextUtils.isEmpty(userId)) {
-                    createUser(name, phone);
-                } else {
-                    updateUser(name, phone);
+            updateUser(name, phone);
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            mImage.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(HomeActivity.this, "Deleted Image", Toast.LENGTH_SHORT);
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+                }
+            });
+
+            userImage.setImageResource(R.drawable.takepictureicon1);
             }
         });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 finish();
             }
         });
@@ -123,6 +157,36 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         toggleButton();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (userId == null) {
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            userId = currentUser.getUid();
+
+            mImage = mStorageReference.getReference().child(userId);
+
+            final long ONE_MEGABYTE = 1024 * 1024;
+            mImage.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    userImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, userImage.getWidth(),
+                            userImage.getHeight(), false));
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+
+            addUserChangeListener();
+        }
     }
 
     public void onClickOfPhotoButton(View v) {
@@ -192,6 +256,23 @@ public class HomeActivity extends AppCompatActivity {
         }
         this.userPhoto=bm;
         userImage.setImageBitmap(bm);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] uploadData = baos.toByteArray();
+
+        UploadTask uploadTask = mImage.putBytes(uploadData);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(HomeActivity.this, "Uploaded Image", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -227,24 +308,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * Creating new user node under 'users'
-     */
-    private void createUser(String name, String email) {
-        // TODO
-        // In real apps this userId should be fetched
-        // by implementing firebase auth
-        if (TextUtils.isEmpty(userId)) {
-            userId = mFirebaseDatabase.push().getKey();
-        }
-
-        User user = new User(name, email);
-
-        mFirebaseDatabase.child(userId).setValue(user);
-
-        addUserChangeListener();
-    }
-
-    /**
      * User data change listener
      */
     private void addUserChangeListener() {
@@ -261,6 +324,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 Log.e(TAG, "User data is changed!" + user.name + ", " + user.phone);
+
 
                 // Display newly updated name and email
                 txtDetails.setText(user.name + ", " + user.phone);
@@ -280,13 +344,12 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUser(String name, String email) {
+    private void updateUser(String name, String phone) {
         // updating the user via child nodes
         if (!TextUtils.isEmpty(name))
             mFirebaseDatabase.child(userId).child("name").setValue(name);
 
-        if (!TextUtils.isEmpty(email))
-            mFirebaseDatabase.child(userId).child("email").setValue(email);
+        if (!TextUtils.isEmpty(phone))
+            mFirebaseDatabase.child(userId).child("phone").setValue(phone);
     }
 }
-
