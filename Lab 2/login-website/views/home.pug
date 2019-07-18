@@ -1,7 +1,7 @@
 extends layout
 
 block variables
-  - var title = 'Home'
+  - var title = 'MOOC Home'
   //- - var sets = data['sets']
   //- - var userID = data['userID']
   //- - var sharedSets = data['sharedSets']
@@ -10,10 +10,9 @@ block variables
 block content
 
   //- h2.text-center #{firstName}'s Sets
-  h2.text-center Home
+  h2.text-center() #{title}
 
-  button.btn(onclick='login()') Login
-  button.btn(onclick='logout()') Logout
+  img(src='mooc.jpg')
 
   //- if sets.length == 0 
   //-   div.message You have no flashcard sets. Click "Add Set" to create your first set!
@@ -55,13 +54,6 @@ block content
   //-         td.text-center #{progress}
 
   script.
-    function login() {
-      window.location.href = '/login/?username=amy&password=amyspassword'
-    }
-
-    function logout() {
-      window.location.href = '/logout'
-    }
   //-   function add() {
   //-     window.location.href = '/submitSet'
   //-   }

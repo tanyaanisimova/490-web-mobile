@@ -1,0 +1,34 @@
+extends layout
+
+block variables
+  - const title = 'Courses'
+  - const courses = data['courses']
+
+block content
+
+  h2.text-center #{title}
+
+  if courses.length == 0
+    div.message No courses are available at this time.
+  else
+    table
+      tr
+        th(class='text-center' style="width:70%") Course Name
+        th(class='text-center' style="width:30%") Enrollment Status
+      each row in courses
+        tr
+          td.text-center #{row.Name}
+          td.text-center #{row.CourseStatus}
+
+  script.
+
+  //-   function edit(setID) {
+  //-     window.location.href = '/submitSet/?setID=' + setID
+  //-   } 
+
+  //-   function confirmDelete(name, setID) {
+  //-     var result = confirm('Are you sure you want to delete '+name+'?')
+  //-     if (result == true) {
+  //-       window.location.href = '/deleteSet/?setID=' + setID
+  //-     }
+  //-   }

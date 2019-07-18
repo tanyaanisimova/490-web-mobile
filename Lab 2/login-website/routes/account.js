@@ -38,14 +38,7 @@ router.get('/', (req, res) => {
   //   })
   // })
 
-  if (!req.query.username || !req.query.password) {
-    // res.send('login failed')
-    res.redirect('/login')
-  } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
-    req.session.user = {name : "amy", userId : 1}
-    user = req.session.user
-    res.redirect('/courses')
-  }
+  res.render('account')
 })
 
 module.exports = router

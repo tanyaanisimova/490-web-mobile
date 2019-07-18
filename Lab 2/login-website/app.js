@@ -1,21 +1,25 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var logger = require('morgan')
-var session = require('express-session')
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const logger = require('morgan')
+const session = require('express-session')
 //var mysql = require('mysql')
 
-const indexRouter = require('./routes/index')
+const homeRouter = require('./routes/home')
 const loginRouter = require('./routes/login')
-// const homeRouter = require('./routes/home')
+const logoutRouter = require('./routes/logout')
+const coursesRouter = require('./routes/courses')
+const accountRouter = require('./routes/account')
 // const accountRouter = require('./routes/account')
 // const publicRouter = require('./routes/public')
 // const usersRouter = require('./routes/users')
 // const setRouter = require('./routes/set')
 
-var app = express()
+const app = express()
 
-var sensitive = require('./sensitive.json')
+let user;
+
+const sensitive = require('./sensitive.json');
 
 // var connection = mysql.createConnection({
 //   host: sensitive.host,
@@ -86,30 +90,25 @@ app.use((req, res, next) => {
 //   next()
 // }
 
-var auth = function(req, res, next) {
-  if (req.session && req.session.user === "amy" && req.session.admin)
-    //query db
+const auth = function (req, res, next) {
+  if (req.session && req.session.user)
     return next();
   else
-    return res.sendStatus(401);
+    return res.status(401).render('unauthenticated')
 };
 
 app.get('/test', (req, res) => {
   res.json({ profile: req.user ? req.user.profile : null })
 })
 
-app.use('/', indexRouter)
+app.use('/', homeRouter)
 app.use('/login', loginRouter)
-// app.use('/', auth, homeRouter)
+app.use('/logout', logoutRouter)
+app.use('/courses', auth, coursesRouter)
+app.use('/account', auth, accountRouter)
 // app.use('/account', auth, accountRouter)
 // app.use('/users', auth, usersRouter)
 // app.use('/set', auth, setRouter)
-
-// Logout endpoint
-app.get('/logout', function (req, res) {
-  req.session.destroy();
-  res.redirect('/');
-});
 
 // app.use(express.static(path.join(__dirname, 'assets')))
 

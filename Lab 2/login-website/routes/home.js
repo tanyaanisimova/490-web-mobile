@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
   //   })
   // })
 
-  res.render('index')
+  res.render('home')
 })
 
 module.exports = router
