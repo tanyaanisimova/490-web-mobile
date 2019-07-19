@@ -238,3 +238,13 @@ input.form-check-input {
 	margin-bottom: 5px;
 }
 
+table.profile {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 600px;
+}
+
+table.profile, td.profile, th.profile {
+	border: none;
+	background: white;
+}

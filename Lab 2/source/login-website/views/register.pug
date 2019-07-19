@@ -1,0 +1,48 @@
+extends layout
+
+block variables
+    - const title = 'Registration';
+    - const isDuplicate = data['isDuplicate'];
+    - const isInvalid = data['isInvalid'];
+    - const email = data['email'];
+    - const first = data['first'];
+    - const last = data['last'];
+    - const password = data['password'];
+
+block content
+    h2.text-center() #{title}
+
+    form(method='POST' action='/register')
+        div.form-group
+            if isDuplicate
+                div.error There is already an account registered under your email address.
+            else if isInvalid
+                div.error All fields are required.
+
+
+            label(for='email') Email:
+            input.form-control(type='email', placeholder='Email', name='email', value=email, maxlength=128)
+
+            br
+
+            label(for='first') First Name:
+            input.form-control(type='text', placeholder='First Name', name='first', value=first, maxlength=128)
+
+            br
+
+            label(for='last') Email:
+            input.form-control(type='text', placeholder='Last Name', name='last', value=last, maxlength=128)
+
+            br
+
+            label(for='password') Password:
+            input.form-control(type='password', placeholder='Password', name='password', value=password, maxlength=128)
+
+            button.btn.submit(type='submit') Register
+            span(style='margin-right: 25px') Already have an account?
+            button.btn.canel(type='button' onclick='register()') Login
+
+    script.
+        function login() {
+            window.location.href = '/login'
+        }

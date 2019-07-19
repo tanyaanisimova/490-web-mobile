@@ -7,6 +7,7 @@ const session = require('express-session')
 
 const homeRouter = require('./routes/home')
 const loginRouter = require('./routes/login')
+const registerRouter = require('./routes/register')
 const logoutRouter = require('./routes/logout')
 const coursesRouter = require('./routes/courses')
 const accountRouter = require('./routes/account')
@@ -103,6 +104,7 @@ app.get('/test', (req, res) => {
 
 app.use('/', homeRouter)
 app.use('/login', loginRouter)
+app.use('/register', registerRouter)
 app.use('/logout', logoutRouter)
 app.use('/courses', auth, coursesRouter)
 app.use('/account', auth, accountRouter)

@@ -8,7 +8,7 @@ Create TABLE account ( -- user is a keyword
 	Email VARCHAR(128) NOT NULL UNIQUE,
 	LastName VARCHAR(128) NOT NULL,
 	FirstName VARCHAR(128) NOT NULL,
-	PasswordHash VARCHAR(128) NOT NULL
+	Password VARCHAR(128) NOT NULL
 )engine=innodb; -- innodb for FK support
 
 Create TABLE course (
@@ -22,7 +22,7 @@ Create TABLE course_history (
 	CourseID INT NOT NULL,
 	AccountID INT NOT NULL,
 	CourseStatus ENUM('enrolled', 'passed') NOT NULL DEFAULT 'enrolled',
-	UNIQUE KEY Coshadowurse_Account_UK (CourseID, AccountID),
+	UNIQUE KEY Course_Account_UK (CourseID, AccountID),
 	CONSTRAINT Course_FK FOREIGN KEY (CourseID) references course(CourseID),
 	CONSTRAINT Account_FK FOREIGN KEY (AccountID) references account(AccountID)
 )engine=innodb;
@@ -37,11 +37,35 @@ begin
 		where H.AccountID = account_id or H.AccountID is null;
 end //
 
+create procedure getCourseHistory(IN account_id int)
+begin
+	select * from course as C 
+		left join course_history as H on C.CourseID=H.CourseID
+		where H.AccountID = account_id;
+end //
+
+create procedure getAccount(IN email_ VARCHAR(128), IN password_ VARCHAR(128))
+begin
+	select * from account where Email = email_ AND Password = password_;
+end //
+
+create procedure checkEmail(IN email_ VARCHAR(128))
+begin
+	select AccountID from account where Email = email_;
+end //
+
+create procedure createAccount(IN email_ VARCHAR(128), IN first_ VARCHAR(128), IN last_ VARCHAR(128), IN password_ VARCHAR(128))
+begin
+	INSERT INTO account (Email, FirstName, LastName, Password) VALUES(email_, first_, last_, password_);
+	select last_insert_id() as AccountID;
+end //
+
 delimiter ;
 
-INSERT INTO account (AccountID, Email, FirstName, LastName, PasswordHash) VALUES(1, "anisimova.tanya07@gmail.com", "Tanya", "Anisimova", "pass");
-INSERT INTO account (AccountID, Email, FirstName, LastName, PasswordHash) VALUES(2, "anisimova.tanya2@gmail.com", "Tanya2", "Anisimova2", "pass");
-INSERT INTO account (AccountID, Email, FirstName, LastName, PasswordHash) VALUES(3, "other.user@gmail.com", "Other", "User", "pass");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(1, "anisimova.tanya07@gmail.com", "Tanya", "Anisimova", "pass");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(2, "anisimova.tanya2@gmail.com", "Tanya2", "Anisimova2", "pass");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(3, "other.user@gmail.com", "Other", "User", "pass");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(4, "some.user@eyeverify.com", "Some", "User", "password1");
 
 INSERT INTO course (CourseID, Name, Description) VALUES(1, "Java", "This course covers the features of and princliples needs to program in Java. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 

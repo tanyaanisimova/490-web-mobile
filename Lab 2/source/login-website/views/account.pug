@@ -1,0 +1,43 @@
+extends layout
+
+block variables
+  - var title = 'Account'
+  - var courses = data['courses']
+  - var name = data['name']
+
+block content
+  h2.text-center My Account
+
+  h4 Profile
+  br
+
+  table.profile(style="width: 100%;")
+    tr.profile
+      td.profile(style="width: 20%; padding-left: 10%")
+        img(style="height: 150px; width: 150px", src="bean.jpg", alt="Profile Picture")
+
+      td.profile(style="width: 50%; padding-left: 10%; font-size: 20px")
+        p #{name}
+        br
+        p Status: Undergraduate
+        br
+        p Major: Computer Science
+
+
+  br
+  br
+
+  h4 Course History
+  if courses.length == 0
+    div.message You have not enrolled or taken any courses. #[a(href="/courses", title="Login/Register") View courses]
+
+  else
+    table
+      tr
+        th(class='text-center' style="width:70%") Course Name
+        th(class='text-center' style="width:30%") Enrollment Status
+      each row in courses
+        tr
+          td.text-center #{row.Name}
+          td.text-center #{row.CourseStatus}
+

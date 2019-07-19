@@ -1,0 +1,30 @@
+extends layout
+
+block variables
+    - const title = 'Login';
+    - const isInvalid = data['isInvalid'];
+
+block content
+    h2.text-center() #{title}
+
+    form(method='POST' action='/login')
+        div.form-group
+            if isInvalid
+                div.error Incorrect email/password entered. Please try again.
+
+            label(for='email') Email:
+            input.form-control(type='email', placeholder='Email', name='email', maxlength=128)
+
+            br
+
+            label(for='password') Password:
+            input.form-control(type='password', placeholder='Password', name='password', maxlength=128)
+
+            button.btn.submit(type='submit') Login
+            span(style='margin-right: 25px') Dont have an account?
+            button.btn.canel(type='button' onclick='register()') Register
+
+    script.
+        function register() {
+            window.location.href = '/register'
+        }
