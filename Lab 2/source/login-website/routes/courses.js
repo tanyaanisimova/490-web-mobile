@@ -19,22 +19,44 @@ router.get('/', (req, res) => {
   connection.connect(function(err) {
     if (err) throw err
 
-    connection.query('CALL getCourses(?)', user.userId, function (error, result, fields) {
+    connection.query('CALL getCourses()', function (error, result, fields) {
       if (error) throw error
 
-      result[0].forEach(function(row) {
-        if (row.CourseStatus == 'enrolled') {
-          row.CourseStatus = 'Enrolled'
+      courses = result[0]
 
-        } else if (row.CourseStatus == 'passed') {
-          row.CourseStatus = 'Passed'
+      connection.query('CALL getCourseHistory(?)', user.userId, function (error, result, fields) {
+        if (error) throw error
 
-        } else {
-          row.CourseStatus = 'None'
-        }
+        let courseData = []
+
+        courses.forEach(function(course) {
+          courseData.push({CourseID: course.CourseID, Name: course.Name, CourseStatus: 'None'})
+        })
+
+        let resultData = courseData
+        let index = 0
+        courseData.forEach(function(course) {
+          result[0].forEach(function(history) {
+            if (history.CourseID === course.CourseID) {
+              if (history.CourseStatus == 'enrolled') {
+                history.CourseStatus = 'Enrolled'
+
+              } else if (history.CourseStatus == 'passed') {
+                history.CourseStatus = 'Passed'
+
+              } else {
+                history.CourseStatus = 'None'
+              }
+              resultData[index] = {CourseID: course.CourseID, Name: course.Name, CourseStatus: history.CourseStatus}
+            }
+          })
+          index++
+        })
+
+        res.render('courses', { data : { courses: resultData}})
+        connection.end()
+
       })
-      res.render('courses', { data : { courses: result[0]}})
-      connection.end()
     })
   })
 })

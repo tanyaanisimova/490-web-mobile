@@ -30,11 +30,9 @@ Create TABLE course_history (
 /*STORED PROCEDURES*/
 delimiter // 
 
-create procedure getCourses(IN account_id int)
+create procedure getCourses()
 begin
-	select * from course as C 
-		left join course_history as H on C.CourseID=H.CourseID
-		where H.AccountID = account_id or H.AccountID is null;
+	select * from course;
 end //
 
 create procedure getCourseHistory(IN account_id int)
@@ -105,6 +103,9 @@ INSERT INTO course_history (AccountID, CourseID) VALUES(1, 5);
 INSERT INTO course_history (AccountID, CourseID, CourseStatus) VALUES(1, 2, "passed");
 INSERT INTO course_history (AccountID, CourseID, CourseStatus) VALUES(1, 4, "passed");
 INSERT INTO course_history (AccountID, CourseID, CourseStatus) VALUES(1, 6, "passed");
+
+INSERT INTO course_history (AccountID, CourseID, CourseStatus) VALUES(4, 4, "passed");
+INSERT INTO course_history (AccountID, CourseID, CourseStatus) VALUES(4, 6, "passed");
 
 INSERT INTO course_history (AccountID, CourseID) VALUES(2, 12);
 INSERT INTO course_history (AccountID, CourseID) VALUES(2, 1);
