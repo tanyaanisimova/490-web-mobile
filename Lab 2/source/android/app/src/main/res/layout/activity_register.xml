@@ -4,13 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SignUpActivity"
-
-    android:background="@drawable/bg">
+    android:padding="@dimen/quarter"
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -34,20 +29,7 @@
                         android:id="@+id/etFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/edittext_top_bg"
-                        android:hint="  First Name"
-                        android:textColorHint="#bbbbbb"
-                        android:drawableRight="@drawable/user"
-                        />
-                    <EditText
-                        android:id="@+id/etLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/edittext_top_bg"
-                        android:hint="  Last Name"
-                        android:textColorHint="#bbbbbb"
-                        android:drawableRight="@drawable/user"
-                        android:layout_marginTop="30dp"
+                        android:hint="Name"
                         />
 
              </LinearLayout>
@@ -55,7 +37,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="133dp"
-                android:src="@drawable/takepictureicon1"
+                android:src="@drawable/takepictureicon"
                 android:id="@+id/ivUserImage"
                 android:onClick="onClickOfPhotoButton"
                 />
@@ -63,40 +45,35 @@
         </GridLayout>
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
             android:hint="Email"
             android:textColorHint="#bbbbbb"
-            android:drawableRight="@drawable/email"
             android:layout_marginBottom="10dp"/>
 
 
         <EditText
-            android:id="@+id/etPass"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/edittext_bottom_bg"
             android:layout_marginTop="-2dp"
             android:padding="10dp"
             android:hint="Password"
             android:textColorHint="#bbbbbb"
-            android:password="true"
-            android:drawableRight="@drawable/password"
+            android:inputType="textPassword"
             android:layout_marginBottom="10dp"/>
 
         <Button
-            android:id="@+id/btnSingIn"
+            android:id="@+id/btn_register"
+            style="?android:textAppearanceSmall"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_margin="4dp"
-            android:text="Create Account"
-            style="@style/DefaultButtonText"
-            android:background="@drawable/button_default_bg"
-            android:onClick="onSignUp"
+            android:layout_marginTop="@dimen/fifteen"
+            android:text="Register"
+            android:onClick="register"
             />
 
     </LinearLayout>

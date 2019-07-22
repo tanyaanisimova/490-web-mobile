@@ -28,6 +28,8 @@ public final class DBSchema {
     public static class User implements BaseColumns {
         public static final String USER_TABLE = "user";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_EMAIL = "email";
+        public static final String COLUMN_PASSWORD = "password";
         public static final String COLUMN_UNIVERSITY = "university";
         public static final String COLUMN_MAJOR = "major";
         public static final String COLUMN_EMPHASIS = "emphasis";
@@ -40,6 +42,8 @@ public final class DBSchema {
                 USER_TABLE + " (" +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
+                COLUMN_EMAIL + " TEXT, " +
+                COLUMN_PASSWORD + " TEXT, " +
                 COLUMN_UNIVERSITY + " TEXT, " +
                 COLUMN_MAJOR + " TEXT, " +
                 COLUMN_EMPHASIS + " TEXT, " +

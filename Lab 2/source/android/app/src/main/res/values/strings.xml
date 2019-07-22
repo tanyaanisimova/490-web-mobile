@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginApp</string>
+    <string name="app_name">Login Application</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
