@@ -1,7 +1,5 @@
 package rashmi.umkc.edu.samplecalendarapp;
 
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,19 +10,27 @@ import android.widget.Button;
 
 import com.example.displaycalendareventintent.R;
 
+import java.util.Calendar;
+
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button disp = (Button) findViewById(R.id.dispbut);
+        Button disp = (Button) findViewById(R.id.display);
         disp.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 disp();
+            }
+        });
+
+        Button calendar = (Button) findViewById(R.id.calendar);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CalendarActivity.class));
             }
         });
     }
