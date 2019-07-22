@@ -204,9 +204,11 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        long newRowId = database.insert(DBSchema.User.USER_TABLE, null, values);
+        long id = database.insert(DBSchema.User.TABLE_NAME, null, values);
 
-        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
         finish();
     }
 }

@@ -5,16 +5,16 @@ import android.provider.BaseColumns;
 public final class DBSchema {
 
 //    public static final String SELECT_EMPLOYEE_WITH_EMPLOYER = "SELECT * " +
-//            "FROM " + Employee.USER_TABLE + " ee INNER JOIN " + Employer.USER_TABLE + " er " +
+//            "FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " +
 //            "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID + " WHERE " +
 //            "ee." + Employee.COLUMN_FIRSTNAME + " like ? AND ee." + Employee.COLUMN_LASTNAME + " like ?";
 //
 //    public static final String SELECT_EMPLOYEE_ALL = "SELECT * " +
-//            "FROM " + Employee.USER_TABLE + " ee INNER JOIN " + Employer.USER_TABLE + " er " +
+//            "FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " +
 //            "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID;
 //
 //    public static final String SELECT_EMPLOYEE_BY_ID = "SELECT * " +
-//            "FROM " + Employee.USER_TABLE + " ee INNER JOIN " + Employer.USER_TABLE + " er " +
+//            "FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " +
 //            "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID + " WHERE " +
 //            "ee." + Employee.EMPLOYEE_ID + " = ?";
 //
@@ -26,7 +26,7 @@ public final class DBSchema {
     }
 
     public static class User implements BaseColumns {
-        public static final String USER_TABLE = "user";
+        public static final String TABLE_NAME = "user";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_PASSWORD = "password";
@@ -39,7 +39,7 @@ public final class DBSchema {
         public static final String COLUMN_BIRTHDAY = "birthday";
 
         public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " +
-                USER_TABLE + " (" +
+                TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_EMAIL + " TEXT, " +

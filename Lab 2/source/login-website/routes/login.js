@@ -13,11 +13,13 @@ router.post('/', (req, res) => {
   const email = postBody.email
   const password = postBody.password;
 
+  // check for invalid inputs
   if (password.trim() === 0 | !password.trim() | email.trim() === 0 | !email.trim()) {
     show(res, true)
     return;
   }
 
+  //sensitive db connection details stored outside source code
   const connection = mysql.createConnection({
     host: sensitive.host,
     user: sensitive.user,
@@ -28,15 +30,17 @@ router.post('/', (req, res) => {
   connection.connect(function(err) {
     if (err) throw err
 
+    // stored procedures for safety
     connection.query('CALL getAccount(?,?)', [email, password], function (error, result, fields) {
       if (error) throw error
 
       if (result[0][0] != null) {
+        // store user information in session
         req.session.user = {name: result[0][0].FirstName + " " + result[0][0].LastName , userId: result[0][0].AccountID}
         user = req.session.user
         res.redirect('/courses')
 
-      } else {
+      } else { //incorrect login information given
         show(res, true)
       }
 

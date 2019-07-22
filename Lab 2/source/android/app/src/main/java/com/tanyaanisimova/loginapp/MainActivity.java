@@ -1,5 +1,7 @@
 package com.tanyaanisimova.loginapp;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +12,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView txtDetails;
     private EditText inputName, inputPhone;
-    private Button btnSave;
-    private Button btnDelete;
-    private Button btnLogout;
-    private Button btnUpload;
 
     int REQUEST_CAMERA = 0;
     int SELECT_FILE = 1;
@@ -33,23 +35,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Displaying toolbar icon
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-
         txtDetails = (TextView) findViewById(R.id.txt_user);
         inputName = (EditText) findViewById(R.id.name);
         inputPhone = (EditText) findViewById(R.id.phone);
-        btnSave = (Button) findViewById(R.id.btn_save);
-        btnDelete = (Button) findViewById(R.id.btn_delete);
-        btnLogout = (Button) findViewById(R.id.btn_logout);
-        btnUpload = (Button) findViewById(R.id.btn_upload);
         userImage = (ImageView) findViewById(R.id.ivUserImage);
+
+        SQLiteDatabase database = new DBHelper(this).getReadableDatabase();
+
+        String query = "SELECT * from " + DBSchema.User.TABLE_NAME
+                + " WHERE " + DBSchema.User._ID + " = ?";
+
+        userId = getIntent().getStringExtra("id");
+        Cursor cursor = database.rawQuery(query , new String[] {userId});
+
+        cursor.moveToFirst();
+
+        inputName.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_NAME)));
+//        binding.descEditText.setText(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employer.COLUMN_DESCRIPTION)));
+
+        Date date = new Date(Long.valueOf(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_BIRTHDAY))));
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateFormatted = formatter.format(date);
+
+        inputPhone.setText(dateFormatted);
+        cursor.close();
 
     }
 
-    public void onClickOfPhotoButton(View v) {
-        //This code redirects to the photo activity.
-        //selectImage();
+    public void logout(View v) {
+        finish();
     }
 }

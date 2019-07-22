@@ -60,10 +60,10 @@ end //
 
 delimiter ;
 
-INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(1, "anisimova.tanya07@gmail.com", "Tanya", "Anisimova", "pass");
-INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(2, "anisimova.tanya2@gmail.com", "Tanya2", "Anisimova2", "pass");
-INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(3, "other.user@gmail.com", "Other", "User", "pass");
-INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(4, "some.user@eyeverify.com", "Some", "User", "password1");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(1, "anisimova.tanya07@gmail.com", "Tanya", "Anisimova", "password");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(2, "anisimova.tanya2@gmail.com", "Tanya2", "Anisimova2", "password");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(3, "other.user@gmail.com", "Other", "User", "password");
+INSERT INTO account (AccountID, Email, FirstName, LastName, Password) VALUES(4, "some.user@eyeverify.com", "Some", "User", "password");
 
 INSERT INTO course (CourseID, Name, Description) VALUES(1, "Java", "This course covers the features of and princliples needs to program in Java. Sections include: formal aspects of syntax and semantics, naming, scoping, and binding, scanning, parsing, semantic analysis, and code generationcontrol flow, subroutines, exception handling, and concurrency, type systems, data structures, data abstraction, and storage management, environments and tools");
 

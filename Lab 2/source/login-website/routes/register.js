@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
   const last = postBody.last;
 
   if (password.trim() === 0 | !password.trim() | email.trim() === 0 | !email.trim() | first.trim() === 0 |
-      !first.trim() | last.trim() === 0 | !last.trim()) {
+      !first.trim() | last.trim() === 0 | !last.trim()) { // check for incorrect inputs
     renderView(res, false, true, email, first, last, password)
     return;
   }
@@ -34,13 +34,14 @@ router.post('/', (req, res) => {
     connection.query('CALL checkEmail(?)', [email], function (error, result, fields) {
       if (error) throw error
 
-      if (result[0][0] != null) {
+      if (result[0][0] != null) { //email address is already in use
         renderView(res, true, false, email, first, last, password)
         connection.end()
         return
       }
 
-      connection.query('CALL createAccount(?,?,?,?)', [email, first, last, password], function (error, result, fields) {
+      connection.query('CALL createAccount(?,?,?,?)', [email, first, last, password],
+          function (error, result, fields) {
         if (error) throw error
 
         if (result[0][0] != null) {
@@ -51,7 +52,6 @@ router.post('/', (req, res) => {
         } else {
           show(res, false, false)
         }
-
         connection.end()
       })
     })

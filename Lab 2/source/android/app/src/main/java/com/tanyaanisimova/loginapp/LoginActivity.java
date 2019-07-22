@@ -1,11 +1,14 @@
 package com.tanyaanisimova.loginapp;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,6 +46,28 @@ public class LoginActivity extends AppCompatActivity {
             mEmailView.setError(getString(R.string.error_invalid_email));
         }
 
+        SQLiteDatabase database = new DBHelper(this).getReadableDatabase();
+
+        String selection =
+                DBSchema.User.COLUMN_EMAIL + " = ? and " +
+                        DBSchema.User.COLUMN_PASSWORD + " = ? ";
+
+        String[] selectionArgs = {email, password};
+
+        Cursor cursor = database.query(
+                DBSchema.User.TABLE_NAME, null, selection, selectionArgs,
+                null, null, null
+        );
+
+        if (cursor.moveToFirst()) {
+            String id = cursor.getString(cursor.getColumnIndex(DBSchema.User._ID));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+
+        } else {
+            Toast.makeText(this, "Incorrect Login Credentials", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean isEmailValid(String email) {

@@ -3,9 +3,8 @@ const router = express.Router()
 
 // Log a user out
 router.get('/', (req, res) => {
-  // req.logout()
-  req.session.destroy();
-  user = null
+  req.session.destroy(); // remove session
+  user = null //remove user information
   res.redirect('/')
 })
 
