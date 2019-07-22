@@ -33,7 +33,7 @@ public final class DBSchema {
         public static final String COLUMN_UNIVERSITY = "university";
         public static final String COLUMN_MAJOR = "major";
         public static final String COLUMN_EMPHASIS = "emphasis";
-        public static final String COLUMN_GENDER = "gender";
+//        public static final String COLUMN_GENDER = "gender";
         public static final String COLUMN_MINOR = "minor";
         //public static final String COLUMN_PICTURE = "picture";
         public static final String COLUMN_BIRTHDAY = "birthday";
@@ -47,7 +47,7 @@ public final class DBSchema {
                 COLUMN_UNIVERSITY + " TEXT, " +
                 COLUMN_MAJOR + " TEXT, " +
                 COLUMN_EMPHASIS + " TEXT, " +
-                COLUMN_GENDER + " TEXT, " +
+//                COLUMN_GENDER + " TEXT, " +
                 COLUMN_MINOR + " TEXT, " +
                 //COLUMN_PICTURE + " BLOB, " +
                 COLUMN_BIRTHDAY + " INTEGER" + ")";

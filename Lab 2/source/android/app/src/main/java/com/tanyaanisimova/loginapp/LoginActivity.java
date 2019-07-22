@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
         }
+
     }
 
     private boolean isEmailValid(String email) {

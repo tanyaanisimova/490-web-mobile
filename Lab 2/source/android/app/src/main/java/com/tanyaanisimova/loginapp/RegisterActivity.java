@@ -52,15 +52,14 @@ public class RegisterActivity extends AppCompatActivity {
         userImage = (ImageView) findViewById(R.id.ivUserImage);
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
-        passwordInput = (EditText) findViewById(R.id.password);
-        passwordInput = (EditText) findViewById(R.id.password);
+        birthdayInput = (EditText) findViewById(R.id.birthday);
 
-//       private EditText nameInput;
-//       private EditText birthdayInput;
-//       private EditText universityInput;
-//       private EditText majorInput;
-//       private EditText emphasisInput;
-//       private EditText minorInput;
+//        birthdayInput = (EditText) findViewById(R.id.birthday);
+        universityInput = (EditText) findViewById(R.id.university);
+        majorInput = (EditText) findViewById(R.id.major);
+        emphasisInput = (EditText) findViewById(R.id.emphasis);
+        minorInput = (EditText) findViewById(R.id.minor);
+        nameInput = (EditText) findViewById(R.id.name);
     }
 
     public void onClickOfPhotoButton(View v) {
@@ -161,34 +160,39 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void register(View v) {
-        //add the sign up details to firebase
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
+        //reset errors
+        emailInput.setError(null);
+        passwordInput.setError(null);
+
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+            emailInput.setError(getString(R.string.error_field_required));
+            return;
+        } else if (!email.contains("@")) {
+            emailInput.setError(getString(R.string.error_invalid_email));
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            passwordInput.setError(getString(R.string.error_field_required));
             return;
-        }
-
-        if (password.length() < 6) {
-            Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+        } else if (password.length() < 6) {
+            passwordInput.setError(getString(R.string.error_invalid_password));
             return;
         }
 
         SQLiteDatabase database = new DBHelper(this).getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBSchema.User.COLUMN_EMAIL, email);
-//        values.put(SampleDBContract.Employee.COLUMN_LASTNAME, binding.lastnameEditText.getText().toString());
-//        values.put(SampleDBContract.Employee.COLUMN_JOB_DESCRIPTION, binding.jobDescEditText.getText().toString());
-//        values.put(SampleDBContract.Employee.COLUMN_EMPLOYER_ID,
-//                ((Cursor)binding.employerSpinner.getSelectedItem()).getInt(0));
-
-        try {
+        values.put(DBSchema.User.COLUMN_PASSWORD, password);
+        values.put(DBSchema.User.COLUMN_NAME, nameInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_MAJOR, nameInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_UNIVERSITY, nameInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_EMPHASIS, nameInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_MINOR, nameInput.getText().toString().trim());
+      try {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(
                    birthdayInput.getText().toString()));
@@ -199,6 +203,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Date is in the wrong format", Toast.LENGTH_LONG).show();
             return;
         }
+
         long newRowId = database.insert(DBSchema.User.USER_TABLE, null, values);
 
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
