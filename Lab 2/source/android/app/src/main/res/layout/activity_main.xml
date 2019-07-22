@@ -16,10 +16,11 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt_user"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_blue_dark"
@@ -27,19 +28,91 @@
                 android:paddingTop="@dimen/quarter"
                 android:layout_gravity="left"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/university"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/emphasis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/minor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:text="Female"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:paddingBottom="@dimen/quarter"
+                android:paddingTop="@dimen/quarter"
+                android:layout_gravity="left"
+                android:textSize="20dp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_logout"
                 style="?android:textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_gravity="right"
                 android:background="@color/colorPrimary"
                 android:text="Logout"
@@ -48,40 +121,15 @@
                 android:onClick="logout"/>
 
             <ImageView
-                android:layout_width="120dp"
-                android:layout_height="190dp"
-                android:src="@drawable/takepictureicon"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/bean"
                 android:id="@+id/ivUserImage"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="100dp"
+                android:layout_gravity="right"
                 />
 
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/holo_blue_dark"
-            android:hint="Name"
-            android:inputType="textCapWords"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone"
-            android:textColor="@android:color/holo_blue_dark"
-            android:inputType="textPhonetic"
-            android:maxLines="1" />
 
     </LinearLayout>
 

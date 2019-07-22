@@ -2,11 +2,8 @@ package com.tanyaanisimova.loginapp;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,14 +16,9 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private TextView txtDetails;
-    private EditText inputName, inputPhone;
+    private TextView name, email, gender, birthday, university, major, minor, emphasis;
 
-    int REQUEST_CAMERA = 0;
-    int SELECT_FILE = 1;
     ImageView userImage;
-    String userChosenTask;
-    Bitmap userPhoto = null;
 
     private String userId;
 
@@ -35,9 +27,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtDetails = (TextView) findViewById(R.id.txt_user);
-        inputName = (EditText) findViewById(R.id.name);
-        inputPhone = (EditText) findViewById(R.id.phone);
+        name = (TextView) findViewById(R.id.name);
+        email = (TextView) findViewById(R.id.email);
+        gender = (TextView) findViewById(R.id.gender);
+        birthday = (TextView) findViewById(R.id.birthday);
+        university = (TextView) findViewById(R.id.university);
+        major = (TextView) findViewById(R.id.major);
+        minor = (TextView) findViewById(R.id.minor);
+        emphasis  = (TextView) findViewById(R.id.emphasis);
         userImage = (ImageView) findViewById(R.id.ivUserImage);
 
         SQLiteDatabase database = new DBHelper(this).getReadableDatabase();
@@ -50,16 +47,20 @@ public class MainActivity extends AppCompatActivity {
 
         cursor.moveToFirst();
 
-        inputName.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_NAME)));
-//        binding.descEditText.setText(cursor.getString(cursor.getColumnIndex(SampleDBContract.Employer.COLUMN_DESCRIPTION)));
+        name.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_NAME)));
+        email.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_EMAIL)));
+//        gender.setText();
+        emphasis.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_EMPHASIS)));
+        university.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_UNIVERSITY)));
+        major.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_MAJOR)));
+        minor.setText(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_MINOR)));
 
         Date date = new Date(Long.valueOf(cursor.getString(cursor.getColumnIndex(DBSchema.User.COLUMN_BIRTHDAY))));
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String dateFormatted = formatter.format(date);
 
-        inputPhone.setText(dateFormatted);
+        birthday.setText(dateFormatted);
         cursor.close();
-
     }
 
     public void logout(View v) {

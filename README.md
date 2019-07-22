@@ -37,3 +37,5 @@ ICP 4: https://github.com/tanyaanisimova/490-web-mobile/tree/master/M2%20ICP4
 ## Labs
 
 Module 1 Lab: https://github.com/tanyaanisimova/490-web-mobile/tree/master/Lab%201
+
+Module 2 Lab: https://github.com/tanyaanisimova/490-web-mobile/tree/master/Lab%202

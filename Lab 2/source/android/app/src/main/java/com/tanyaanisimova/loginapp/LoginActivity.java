@@ -25,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+//
+//        DBHelper schema = new DBHelper(this);
+//        schema.onUpgrade(new DBHelper(this).getReadableDatabase(), 0,0);
     }
 
     public void login(View v) {
@@ -32,14 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        String password = mPasswordView.getText().toString();
+        String password = mPasswordView.getText().toString().trim();
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
         } else if (!isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
         }
 
-        String email = mEmailView.getText().toString();
+        String email = mEmailView.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
         } else if (!isEmailValid(email)) {

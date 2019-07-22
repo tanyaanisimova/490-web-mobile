@@ -188,10 +188,10 @@ public class RegisterActivity extends AppCompatActivity {
         values.put(DBSchema.User.COLUMN_EMAIL, email);
         values.put(DBSchema.User.COLUMN_PASSWORD, password);
         values.put(DBSchema.User.COLUMN_NAME, nameInput.getText().toString().trim());
-        values.put(DBSchema.User.COLUMN_MAJOR, nameInput.getText().toString().trim());
-        values.put(DBSchema.User.COLUMN_UNIVERSITY, nameInput.getText().toString().trim());
-        values.put(DBSchema.User.COLUMN_EMPHASIS, nameInput.getText().toString().trim());
-        values.put(DBSchema.User.COLUMN_MINOR, nameInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_MAJOR, majorInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_UNIVERSITY, universityInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_EMPHASIS, emphasisInput.getText().toString().trim());
+        values.put(DBSchema.User.COLUMN_MINOR, minorInput.getText().toString().trim());
       try {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(
@@ -206,9 +206,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         long id = database.insert(DBSchema.User.TABLE_NAME, null, values);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("id", id);
-        startActivity(intent);
         finish();
     }
 }
