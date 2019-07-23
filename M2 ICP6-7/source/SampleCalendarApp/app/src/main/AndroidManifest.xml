@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="rashmi.umkc.edu.samplecalendarapp.CalendarActivity"/>
+        <activity android:name="rashmi.umkc.edu.samplecalendarapp.TTSActivity"/>
     </application>
 
 </manifest>

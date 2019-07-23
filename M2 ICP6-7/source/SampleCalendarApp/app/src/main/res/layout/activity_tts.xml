@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="rashmi.umkc.edu.samplecalendarapp.MainActivity"
+    tools:context="rashmi.umkc.edu.samplecalendarapp.TTSActivity"
     android:padding="25dp">
 
     <LinearLayout
@@ -14,20 +14,21 @@
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/calendar"
+        <EditText
+            android:id="@+id/tts_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Calendar"
             android:layout_marginBottom="50dp"
+            android:hint="Input text"
             />
 
         <Button
-            android:id="@+id/tts"
+            android:id="@+id/tts_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Text To Speech"
+            android:text="TTS"
             />
 
     </LinearLayout>
+
 </RelativeLayout>

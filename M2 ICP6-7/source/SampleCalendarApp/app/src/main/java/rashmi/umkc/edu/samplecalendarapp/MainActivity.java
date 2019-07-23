@@ -18,13 +18,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button disp = (Button) findViewById(R.id.display);
-        disp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                disp();
-            }
-        });
 
         Button calendar = (Button) findViewById(R.id.calendar);
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -33,16 +26,14 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, CalendarActivity.class));
             }
         });
-    }
 
-    public void disp() {
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(2013, 2, 13, 11, 35);
-        Uri uri = Uri.parse("content://com.android.calendar/time/"
-                + String.valueOf(startTime.getTimeInMillis()));
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        // Use the Calendar app to view the time.
-        startActivity(intent);
+        Button tts = (Button) findViewById(R.id.tts);
+        tts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TTSActivity.class));
+            }
+        });
     }
 
     @Override
@@ -51,5 +42,4 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
 }
