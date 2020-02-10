@@ -1,0 +1,302 @@
+TTS: 
+textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+textToSpeech.speak(data, TextToSpeech.QUEUE_FLUSH, null);
+
+Calender view
+<CalendarView
+    android:id="@+id/calender"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"> 
+</CalendarView> 
+onDateChangedListener
+
+Insert event
+Intent intent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+// Add the calendar event details
+intent.putExtra(CalendarContract.Events.TITLE, "Launch!");
+intent.putExtra(CalendarContract.Events.DESCRIPTION,
+        "Learn Java Android Coding");
+intent.putExtra(CalendarContract.Events.EVENT_LOCATION,
+        "UMKC.com");
+Calendar startTime = Calendar.getInstance();
+startTime.set(year, (month - 1), day);
+intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+        startTime.getTimeInMillis());
+intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+// Use the Calendar app to add the new event.
+startActivity(intent);
+
+Insert to DB
+DBHelper extends SQLLiteOpenHelper
+
+QLiteDatabase database = new DBHelper(this).getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBSchema.User.COLUMN_EMAIL, email);
+        values.put(DBSchema.User.COLUMN_PASSWORD, password);
+     
+        long id = database.insert(DBSchema.User.TABLE_NAME, null, values);
+
+Query DB 
+SQLiteDatabase database = new DBHelper(this).getReadableDatabase();
+
+        String selection =
+                DBSchema.User.COLUMN_EMAIL + " = ? and " +
+                        DBSchema.User.COLUMN_PASSWORD + " = ? ";
+
+        String[] selectionArgs = {email, password};
+
+        Cursor cursor = database.query(
+                DBSchema.User.TABLE_NAME, null, selection, selectionArgs,
+                null, null, null
+        );
+
+        if (cursor.moveToFirst()) {
+            String id = cursor.getString(cursor.getColumnIndex(DBSchema.User._ID));
+      
+        } else {
+            Toast.makeText(this, "Incorrect Login Credentials", Toast.LENGTH_SHORT).show();
+        }
+
+New activity with data 
+String id = cursor.getString(cursor.getColumnIndex(DBSchema.User._ID));
+Intent intent = new Intent(this, MainActivity.class);
+intent.putExtra("id", id);
+startActivity(intent);
+
+userId = getIntent().getStringExtra("id");
+
+Set Font
+TextView textView = (TextView) findViewById(R.id.textView);
+Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yourfont.ttf");
+textView.setTypeface(typeface);
+
+<android:fontFamily="@fonts/yourfont">
+
+Firebase 
+mAuth = FirebaseAuth.getInstance();
+
+mStorageReference = FirebaseStorage.getInstance("gs://fir-db-564a3.appspot.com/");
+
+mFirebaseInstance = FirebaseDatabase.getInstance("https://fir-db-564a3.firebaseio.com/");
+
+mFirebaseDatabase = mFirebaseInstance.getReference("users");
+mFirebaseDatabase.child(userId).child("name").setValue(name);
+
+//need object class with matching variables
+mPostReference.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // Get Post object and use the values to update the UI
+        Post post = dataSnapshot.getValue(Post.class);
+        // ...
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        // Getting Post failed, log a message
+        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+        // ...
+    }
+};);
+
+Image capture 
+Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+
+Gallery 
+Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+
+Maps
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.rohithkumar.cameramapsapplication.MyMapsActivity" />
+
+setContentView(R.layout.activity_my_maps);=
+SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+mapFragment.getMapAsync(this);
+
+@Override
+public void onMapReady (GoogleMap googleMap){
+    // Add a marker in Sydney, Australia,
+    // and move the map's camera to the same location.
+
+    try {
+        Location location = getLastKnownLocation();
+
+        LatLng current = new LatLng(location.getLatitude(), location.getLongitude());
+        googleMap.addMarker(new MarkerOptions().position(current).title("Your Location"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(current));
+    } catch (SecurityException e) {
+        Log.e("Maps", e.getLocalizedMessage());
+    }
+}
+
+Camera
+if (checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+    requestPermissions(new String[]{android.Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
+}
+
+@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            userImage.setImageBitmap(photo);
+            Log.d("CameraDemo", "Pic saved");
+        }
+    }
+
+Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+        }
+
+Toast.makeText(this,"In camera activity",Toast.LENGTH_SHORT).show();
+
+
+sensor 
+
+protected void onResume() {
+    super.onResume();
+	sensorManager.registerListener(this,
+	    sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+	    SensorManager.SENSOR_DELAY_NORMAL);
+}
+@Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            accX.setText("X: " + event.values[0]);
+            accY.setText("Y: " + event.values[1]);
+            accZ.setText("Z: " + event.values[2]);
+        }
+    }
+
+List + asyn http
+ListView earthquakeListView = (ListView) findViewById(R.id.list);
+
+mAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
+earthquakeListView.setAdapter(mAdapter);
+
+earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+        Earthquake currentEarthquake = mAdapter.getItem(position);
+        Uri earthquakeUri = Uri.parse(currentEarthquake.getUrl());
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+        startActivity(browserIntent);
+    }
+});
+
+EarthquakeAsyncTask task = new EarthquakeAsyncTask();
+task.execute(USGS_REQUEST_URL);
+
+private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<Earthquake>> {
+
+@Override
+protected List<Earthquake> doInBackground(String url) {
+    List<Earthquake> result = QueryUtils.fetchEarthquakeData2(url);
+    url = new URL(requestUrl);
+    HttpURLConnection httpURLConnection = null;
+        InputStream inputStream = null;
+        try {
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setReadTimeout(10000);
+            httpURLConnection.setConnectTimeout(15000);
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.connect();
+
+            if (httpURLConnection.getResponseCode() == 200) {
+                inputStream = httpURLConnection.getInputStream();
+                StringBuilder output = new StringBuilder();
+                if (inputStream != null) {
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+                    BufferedReader reader = new BufferedReader(inputStreamReader);
+                    String line = reader.readLine();
+                    while (line != null) {
+                        output.append(line);
+                        line = reader.readLine();
+                    }
+                }
+                List<Earthquake> result = output.toString();
+            } else {
+                Log.e(TAG, httpURLConnection.getResponseMessage());
+            }
+
+        } catch (IOException e) {
+            Log.e(TAG, "Problem retrieving the earthquake JSON results.", e);
+        } finally {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+    return result;
+}
+
+@Override
+protected void onPostExecute(List<Earthquake> data) {
+    mAdapter.clear();
+    if (data != null && !data.isEmpty()) {
+        mAdapter.addAll(data);
+    }
+}
+
+Adapter
+public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+
+public EarthquakeAdapter(Context context, List<Earthquake> earthquakes) {
+    super(context, 0, earthquakes);
+}
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+    View listItemView = convertView;
+    if (listItemView == null) {
+        listItemView = LayoutInflater.from(getContext()).inflate(
+                R.layout.earthquake_list_item, parent, false);
+    }
+    Earthquake currentEarthquake = getItem(position);
+    String formattedMagnitude = formatMagnitude(currentEarthquake.getMagnitude());
+    magnitudeView.setText(formattedMagnitude);
+    return listItemView;
+}
+
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/list"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent"/>
+
+Email 
+Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, "");
+        emailIntent.putExtra(Intent.EXTRA_CC, "");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Order Confirmation");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, details);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+
+
+Manifest
+ <activity android:name="com.example.facebooklogin.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>

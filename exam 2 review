@@ -1,0 +1,3 @@
+TTS: 
+textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+textToSpeech.speak(data, TextToSpeech.QUEUE_FLUSH, null);
